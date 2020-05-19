@@ -1,0 +1,30 @@
+<div class="well" style="background-color: white;margin-bottom: 0px; height: 314px; overflow-x: auto;">
+    <ul  class="timeline" *ngFor="let timeline of timelines;let i = index">
+        <li *ngIf="i%2==0 ;else ref">
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">{{timeline.period}}</h4>
+                </div>
+                <div class="timeline-body" style="word-wrap: break-word;">
+                    <p>
+                     {{timeline.works}}
+                    </p>
+                </div>
+            </div>
+        </li>
+        <ng-template #ref>
+            <li class="timeline-inverted">
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">{{timeline.period}}</h4>
+                    </div>
+                    <div class="timeline-body" style="word-wrap: break-word;">
+                        <p>
+                         {{timeline.works}}
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ng-template>
+    </ul>
+</div>

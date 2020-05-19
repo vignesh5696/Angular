@@ -1,0 +1,37 @@
+<div class="panel-group">
+    <div class="panel panel-default" style="cursor: pointer;"  *ngFor="let qualification of qualifications">
+        <div class="panel-heading" (click)="collapse(reference)">
+                <strong>{{qualification.degree}}</strong>
+                <span data-toggle="tooltip" class="glyphicon glyphicon-resize-full pull-right"
+                title="Expand" *ngIf="reference.className=='panel-body collapse'"></span>
+                <span data-toggle="tooltip" class="glyphicon glyphicon-resize-small pull-right"
+                title="Contract" *ngIf="reference.className =='panel-body collapse in'"></span>
+        </div>
+            <div class="panel-body collapse in" style="cursor: default" #reference>
+                <div class="row">
+                    <div class="col-xs-2">
+                      Instituition
+                    </div>
+                    <div class="col-xs-10">
+                        {{qualification.institution}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                    Passed out year
+                    </div>
+                    <div class="col-xs-10">
+                        {{qualification.batch}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                    Percentage
+                    </div>
+                    <div class="col-xs-10">
+                        {{qualification.percentage}}
+                    </div>
+                </div>
+            </div>
+    </div>  
+</div>
