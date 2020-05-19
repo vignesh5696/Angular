@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Contact details</strong>
+        <div class="pull-right" *ngIf="isAuthenticated" (click)="onSave()"
+        style="cursor: pointer;margin: 0px 8px;">Save</div>
+        <div class="pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
+        style="cursor: pointer;">Edit</div>
+   </div>
+    <div class="panel-body">
+    <div class="contaier" *ngFor="let contact of contact">
+        <div class="row">
+            <div class="col-xs-2">
+                {{contact.key}}
+            </div>
+            <div class="col-xs-1">
+            <strong>:</strong> 
+            </div>
+            <div class="col-xs-5" *ngIf="contact.key != 'Linkedin' && !editMode">
+                {{contact.value}}
+            </div>
+            <div class="col-xs-7" style="padding: 2px;margin: 2px 2px;width: 500px;" *ngIf="contact.key != 'Linkedin' && editMode">
+              <input style="width: 500px;" type="text"  [(ngModel)]="contact.value"> 
+            </div>
+            <div class="col-xs-7" *ngIf="contact.key == 'Linkedin' && !editMode">
+            <a href='https://www.linkedin.com/in/vignesh-n-120a15121'>{{contact.value}}</a>
+            </div>
+            <div class="col-xs-7" style="padding: 2px;margin: 2px 2px; width: 500px;" *ngIf="contact.key == 'Linkedin' && editMode">
+                <input style="width: 500px;" type="text" [(ngModel)]="contact.value"> 
+        </div>
+    </div>
+    </div>
+</div>
