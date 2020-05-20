@@ -1,37 +1,78 @@
 <div class="panel-group">
-    <div class="panel panel-default" style="cursor: pointer;"  *ngFor="let qualification of qualifications">
-        <div class="panel-heading" (click)="collapse(reference)">
-                <strong>{{qualification.degree}}</strong>
-                <span data-toggle="tooltip" class="glyphicon glyphicon-resize-full pull-right"
-                title="Expand" *ngIf="reference.className=='panel-body collapse'"></span>
-                <span data-toggle="tooltip" class="glyphicon glyphicon-resize-small pull-right"
-                title="Contract" *ngIf="reference.className =='panel-body collapse in'"></span>
-        </div>
-            <div class="panel-body collapse in" style="cursor: default" #reference>
-                <div class="row">
-                    <div class="col-xs-2">
-                      Instituition
-                    </div>
-                    <div class="col-xs-10">
-                        {{qualification.institution}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                    Passed out year
-                    </div>
-                    <div class="col-xs-10">
-                        {{qualification.batch}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                    Percentage
-                    </div>
-                    <div class="col-xs-10">
-                        {{qualification.percentage}}
-                    </div>
-                </div>
+    <div style="height: 24px;"  *ngIf="isAuthenticated">
+        <div class="glyphicon glyphicon-remove pull-right"  (click)="onCancel()"
+        style="cursor: pointer;padding-left: 8px; padding-right: 16px;" data-toggle="tooltip" title="Cancel Changes"></div>
+        <div class="glyphicon glyphicon-floppy-disk pull-right" (click)="onSave()"
+        style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
+        <div  class="glyphicon glyphicon-pencil pull-right"  (click)="editMode=true"
+        style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
+    </div>
+    <div *ngIf="loading" style="text-align: center;">
+        <app-spinner></app-spinner>
+    </div>
+    <div *ngIf="error">
+        <app-confirmation [message]="error" (ok)="onOk()" (close)="error = null"></app-confirmation>
+    </div>
+    <div *ngIf="!loading" >
+        <div class="panel panel-default" style="cursor: pointer;"  
+        *ngFor="let qualification of qualifications">
+            <div class="panel-heading">
+                <strong *ngIf="!editMode">{{qualification.degree}}</strong>
+                <input *ngIf="editMode" style="width: 500px;" type="text"
+                [(ngModel)]="qualification.degree"  (ngModelChange)="changesMade=true"/>
+                <span (click)="collapse(reference)" data-toggle="tooltip" 
+                class="glyphicon glyphicon-resize-full pull-right"
+                title="Expand" *ngIf="reference.className=='panel-body collapse'">
+                </span>
+                <span (click)="collapse(reference)" data-toggle="tooltip" 
+                class="glyphicon glyphicon-resize-small pull-right"
+                title="Contract" *ngIf="reference.className =='panel-body collapse in'">
+                </span>
             </div>
-    </div>  
+                <div class="panel-body collapse in" style="cursor: default" #reference>
+                    <div class="row">
+                        <div class="col-xs-2" 
+                        [style]="editMode ? 'margin-top: 8px;' : 'margin-top: 0px;'">
+                          Institution
+                        </div>
+                        <div class="col-xs-10" *ngIf="!editMode">
+                            {{qualification.institution}}
+                        </div>
+                        <div class="col-xs-10" *ngIf="editMode">
+                        <input type="text" 
+                        style ="width: 500px;margin-top: 8px;"
+                        (ngModelChange)="changesMade=true" [(ngModel)]="qualification.institution">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2" 
+                        [style]="editMode ? 'margin-top: 8px;' : 'margin-top: 0px;'">
+                        Passed out year
+                        </div>
+                        <div class="col-xs-10" *ngIf="!editMode">
+                            {{qualification.batch}}
+                        </div>
+                        <div class="col-xs-10" *ngIf="editMode">
+                            <input type="text" 
+                            style ="width: 500px;margin-top: 8px;" 
+                            (ngModelChange)="changesMade=true" [(ngModel)]="qualification.batch">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2" 
+                        [style]="editMode ? 'margin-top: 8px;' : 'margin-top: 0px;'">
+                        Percentage
+                        </div>
+                        <div class="col-xs-10" *ngIf="!editMode">
+                            {{qualification.percentage}}
+                        </div>
+                        <div class="col-xs-10" *ngIf="editMode">
+                            <input type="text" 
+                            style ="width: 500px;margin-top: 8px;" 
+                            (ngModelChange)="changesMade=true" [(ngModel)]="qualification.percentage">
+                        </div>
+                    </div>
+                </div>
+        </div>  
+    </div>
 </div>

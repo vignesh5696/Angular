@@ -20,10 +20,6 @@ export class ContactService{
     onFetchContact(){
      return this.authService.user.pipe(take(1),exhaustMap(user => {
             return this.http.get<ContactModel[]>("https://vignesh-nagarajan.firebaseio.com/contact.json")
-        }),tap(res => {
-            return res.map(single => {
-                return single
-            })
         }))
     }
 }

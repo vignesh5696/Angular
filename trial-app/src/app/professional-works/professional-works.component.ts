@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ProfessionalWorksModel } from './professional-works.model';
+import { AuthService } from '../auth/auth.service';
+import { ProfessionalWorksService } from './professional-works.service';
+import { TimelineModel } from '../shared/timeline/timeline.model';
 
 @Component({
   selector: 'app-professional-works',
@@ -8,15 +11,26 @@ import { ProfessionalWorksModel } from './professional-works.model';
 })
 export class ProfessionalWorksComponent implements OnInit {
 
-  showTimeline = false;
+  showTimeline : boolean = false;
+  isAuthenticated : boolean = false;
+  editMode : boolean = false;
+  changesMade : boolean = false;
+  loading : boolean = false;
+  error : string = null;
 
   Organisations : ProfessionalWorksModel[] = [
-    new ProfessionalWorksModel("Infoview Technologies pvt. ltd","Junior Engineer","2017 - Till date",
-    "Java")
+    // new ProfessionalWorksModel("Infoview Technologies pvt. ltd","Junior Engineer","2017 - Till date",
+    // "Java")
   ]
-  constructor() { }
+  constructor(private authService : AuthService,private ref : ChangeDetectorRef,
+    private professionalWorksService : ProfessionalWorksService) { }
 
   ngOnInit(): void {
+    this.authService.user.subscribe(user =>{
+      this.isAuthenticated = !!user;
+      this.ref.detectChanges();
+    });
+    this.onFetch();
   }
 
   collapse(element : HTMLElement){
@@ -25,6 +39,45 @@ export class ProfessionalWorksComponent implements OnInit {
 
   toggleTimeline(){
     this.showTimeline=!this.showTimeline;
+  }
+
+  onCancel(){
+    if(!this.changesMade)
+    this.editMode = false;
+    else{
+      this.error = "Do you want to proceed without saving the changes?"
+    }
+  }
+
+  onOk(){
+    this.onFetch();
+    this.error=null;
+    this.editMode=false;
+  }
+
+  onSave(){
+    if(this.changesMade){
+    this.loading=true;
+    this.professionalWorksService.onSaveProfessionalworks(this.Organisations).subscribe(res =>{
+      this.loading = false;
+    },err => {
+      console.log(err);
+      this.loading= false;
+    });}else{
+      console.log("No changes")
+    }
+    this.editMode=false;
+  }
+
+  onFetch(){
+    this.loading=true;
+    this.professionalWorksService.onFetchProfessionalworks().subscribe(res => {
+      this.Organisations = res.slice(0,1)[0];
+      this.loading = false;
+    },err => {
+      console.log(err);
+      this.loading = false;
+    });
   }
 
 }

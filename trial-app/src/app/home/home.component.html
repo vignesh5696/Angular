@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <strong>Welcome!</strong>
+              <div class="glyphicon glyphicon-remove pull-right" *ngIf="isAuthenticated"  (click)="onCancel()"
+              style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Cancel Changes"></div>
+              <div class="glyphicon glyphicon-floppy-disk pull-right" *ngIf="isAuthenticated"  (click)="onSave()"
+              style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
+              <div  class="glyphicon glyphicon-pencil pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
+              style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
+            </div>
+            <div *ngIf="loading" style="text-align: center;">
+                <app-spinner></app-spinner>
+            </div>
+            <app-confirmation [message]="error" 
+            *ngIf="error" (close)="onHandleError()" (ok)="onOk()"></app-confirmation>
+            <div class="panel-body" *ngIf="!loading">
+                <div class="row">
+                    <div class="col-xs-12" *ngIf="!editMode">
+                        <p>{{content.body}}</p>
+                    </div>
+                    <div class="col-xs-12"  *ngIf="editMode">
+                        <textarea (ngModelChange)="changesMade=true" [(ngModel)]="content.body"
+                        cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,12 +3,17 @@
         <li *ngIf="i%2==0 ;else ref">
             <div class="timeline-panel">
                 <div class="timeline-heading">
-                    <h4 class="timeline-title">{{timeline.period}}</h4>
+                    <h4  *ngIf="!editMode" class="timeline-title">{{timeline.period}}</h4>
+                    <input *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
+                    [(ngModel)]="timeline.period" style="margin-top: 8px; width: 200px;"/>
                 </div>
                 <div class="timeline-body" style="word-wrap: break-word;">
-                    <p>
+                    <p *ngIf="!editMode">
                      {{timeline.works}}
                     </p>
+                    <textarea *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
+                        [(ngModel)]="timeline.works" 
+                        style="height: 200px; width: 300px;margin-top: 8px;"></textarea>
                 </div>
             </div>
         </li>
@@ -16,12 +21,17 @@
             <li class="timeline-inverted">
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4 class="timeline-title">{{timeline.period}}</h4>
+                        <h4 *ngIf="!editMode" class="timeline-title">{{timeline.period}}</h4>
+                        <input *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
+                         [(ngModel)]="timeline.period" style="margin-top: 8px; width: 200px;"/>
                     </div>
                     <div class="timeline-body" style="word-wrap: break-word;">
-                        <p>
+                        <p *ngIf="!editMode">
                          {{timeline.works}}
                         </p>
+                        <textarea *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
+                        [(ngModel)]="timeline.works" 
+                        style="height: 200px; width: 300px;margin-top: 8px;"></textarea>
                     </div>
                 </div>
             </li>

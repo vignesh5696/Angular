@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TimelineModel } from './timeline.model';
+import { Subject } from 'rxjs';
+import { ProfessionalWorksService } from 'src/app/professional-works/professional-works.service';
 
 @Component({
   selector: 'app-timeline',
@@ -8,14 +10,23 @@ import { TimelineModel } from './timeline.model';
 })
 export class TimelineComponent implements OnInit {
 
-  timelines : TimelineModel[] = [
-    new TimelineModel("2017","HUEzfgddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
-    new TimelineModel("2017","HUEzfgddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
-    new TimelineModel("2017","HUE")
-  ];
-  constructor() { }
+  @Input() editMode : boolean;
+  @Output() edited = new EventEmitter<boolean>();
 
-  ngOnInit(): void {
+  timelines : TimelineModel[] = [
+    // new TimelineModel("2017","HUEzfgddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
+    // new TimelineModel("2017","HUEzfgddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
+    // new TimelineModel("2017","HUE")
+  ];
+  constructor(private professionalWorksService : ProfessionalWorksService) { 
   }
 
+  ngOnInit(): void {
+  this.timelines = this.professionalWorksService.fetchTimelineData();
+  }
+
+  changesMade(){
+    this.edited.emit(true);
+    this.professionalWorksService.getTimelineData(this.timelines);
+  }
 }

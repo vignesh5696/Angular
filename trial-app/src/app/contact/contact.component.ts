@@ -45,7 +45,7 @@ onSave(){
     this.changesMade=false;
   }
     else{
-      console.log("Not in edited")
+      console.log("Not edited")
     }
   }
 
@@ -62,8 +62,9 @@ onSave(){
   }
 
   onOk(){
-    this.error=null;
     this.onFetch();
+    this.error=null;
+    this.editMode=false;
   }
   onFetch(){
     this.loading=true;
@@ -74,6 +75,7 @@ onSave(){
       console.log(error);
     this.loading=false;
     });
+    this.changesMade=false;
   }
 
   ngOnDestroy(){

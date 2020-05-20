@@ -1,43 +1,76 @@
 <div class="panel-group">
-    <div class="panel panel-default" style="cursor: pointer;"  *ngFor="let Organisation of Organisations">
-        <div class="panel-heading" (click)="collapse(reference)">
-                <strong>{{Organisation.name}}</strong>
-                <span data-toggle="tooltip" class="glyphicon glyphicon-resize-full pull-right"
-                title="Expand" *ngIf="reference.className=='panel-body collapse'"></span>
-                <span data-toggle="tooltip" class="glyphicon glyphicon-resize-small pull-right"
-                title="Contract" *ngIf="reference.className =='panel-body collapse in'"></span>
-        </div>
-            <div class="panel-body collapse in" style="cursor: default" #reference>
-                <div class="row">
-                    <div class="col-xs-3">
-                    Role
-                    </div>
-                    <div class="col-xs-9">
-                        {{Organisation.role}}
-                </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                    Technologies worked with
-                    </div>
-                    <div class="col-xs-9">
-                        {{Organisation.technologies}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                    Work Period
-                    </div>
-                    <div class="col-xs-9">
-                        {{Organisation.workingYears}}
-                        <span  data-toggle="tooltip" title="Toggle Timeline"
-                        style="cursor: pointer;" class="glyphicon glyphicon-info-sign"
-                        (click)="toggleTimeline()"></span>
-                    </div>
-                </div>
-                <div *ngIf="showTimeline">
-                    <app-timeline></app-timeline>
-                </div>
+    <div *ngIf="loading" style="text-align: center;">
+        <app-spinner></app-spinner>
+    </div>
+    <div *ngIf="error">
+        <app-confirmation [message]="error" (ok)="onOk()" (close)="error = null"></app-confirmation>
+    </div>
+    <div style="height: 24px;"  *ngIf="isAuthenticated && !loading">
+        <div class="glyphicon glyphicon-remove pull-right"  (click)="onCancel()"
+        style="cursor: pointer;padding-left: 8px; padding-right: 16px;" data-toggle="tooltip" title="Cancel Changes"></div>
+        <div class="glyphicon glyphicon-floppy-disk pull-right" (click)="onSave()"
+        style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
+        <div  class="glyphicon glyphicon-pencil pull-right"  (click)="editMode=true"
+        style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
+    </div>
+    <div *ngIf="!loading">
+        <div class="panel panel-default" style="cursor: pointer;"  *ngFor="let Organisation of Organisations">
+            <div class="panel-heading" >
+                    <strong *ngIf="!editMode">{{Organisation.name}}</strong>
+                    <input *ngIf="editMode" type="text" [(ngModel)]="Organisation.name" 
+                    (ngModelChange)="changesMade=true" style ="width: 500px;">
+                    <span data-toggle="tooltip" class="glyphicon glyphicon-resize-full pull-right"
+                    title="Expand" *ngIf="reference.className=='panel-body collapse'"
+                    (click)="collapse(reference)"></span>
+                    <span data-toggle="tooltip" class="glyphicon glyphicon-resize-small pull-right"
+                    title="Contract" *ngIf="reference.className =='panel-body collapse in'"
+                    (click)="collapse(reference)"></span>
             </div>
-    </div>  
+                <div class="panel-body collapse in" style="cursor: default" #reference>
+                    <div class="row">
+                        <div class="col-xs-3" [style]="editMode ? 'margin-top: 8px;' : 'margin-top: 0px;'">
+                        Role
+                        </div>
+                        <div class="col-xs-9" *ngIf="!editMode">
+                            {{Organisation.role}}
+                        </div>
+                        <div class="col-xs-9" *ngIf="editMode">
+                            <input type="text" [(ngModel)]="Organisation.role"
+                            style ="width: 500px;margin-bottom: 8px;" (ngModelChange)="changesMade=true"> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3" [style]="editMode ? 'margin-top: 8px;' : 'margin-top: 0px;'">
+                        Technologies worked with
+                        </div>
+                        <div class="col-xs-9" *ngIf="!editMode">
+                            {{Organisation.technologies}}
+                        </div>
+                        <div class="col-xs-9" *ngIf="editMode">
+                            <input type="text" [(ngModel)]="Organisation.technologies" 
+                            style ="width: 500px;margin-bottom: 8px;"
+                            (ngModelChange)="changesMade=true" > 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3" [style]="editMode ? 'margin-top: 8px;' : 'margin-top: 0px;'">
+                        Work Period
+                        </div>
+                        <div class="col-xs-9" >
+                            <span *ngIf="!editMode">{{Organisation.workingYears}}</span>
+                          <input type="text" *ngIf="editMode" [(ngModel)]="Organisation.workingYears" 
+                          (ngModelChange)="changesMade=true"  style ="width: 500px;margin-bottom: 8px;"> 
+                            <span  data-toggle="tooltip" title="Toggle Timeline"
+                            [style]="editMode ? ' cursor: pointer;margin-left: 8px;' 
+                            : 'cursor: pointer;margin-left: 8px;'"
+                            class="glyphicon glyphicon-info-sign"
+                            (click)="toggleTimeline()"></span>
+                        </div>
+                    </div>
+                    <div *ngIf="showTimeline">
+                        <app-timeline [editMode]="editMode" (edited)="changesMade=true"></app-timeline>
+                    </div>
+                </div>
+        </div>  
+    </div>
 </div>
