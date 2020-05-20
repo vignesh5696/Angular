@@ -1,12 +1,22 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <strong>Contact details</strong>
-        <div class="pull-right" *ngIf="isAuthenticated" (click)="onSave()"
-        style="cursor: pointer;margin: 0px 8px;">Save</div>
-        <div class="pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
-        style="cursor: pointer;">Edit</div>
+        <!-- <button class="pull-right" *ngIf="isAuthenticated" (click)="onSave()"
+        style="cursor: pointer;background-color: blue;color: white;border-top: 0px;">Save</button> -->
+        <!-- <button class="pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
+        style="cursor: pointer; background-color: green;color: white;border-top: 0px;">Edit</button> -->
+        <div class="glyphicon glyphicon-remove pull-right" *ngIf="isAuthenticated"  (click)="onCancel()"
+        style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Cancel Changes"></div>
+        <div class="glyphicon glyphicon-floppy-disk pull-right" *ngIf="isAuthenticated"  (click)="onSave()"
+        style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
+        <div  class="glyphicon glyphicon-pencil pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
+        style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
    </div>
-    <div class="panel-body">
+   <div *ngIf="loading" style="text-align: center;">
+    <app-spinner></app-spinner>
+</div>
+<app-confirmation [message]="error" *ngIf="error" (close)="onHandleError()" (ok)="onOk()"></app-confirmation>
+    <div class="panel-body" *ngIf="!loading">
     <div class="contaier" *ngFor="let contact of contact">
         <div class="row">
             <div class="col-xs-2">
@@ -18,14 +28,14 @@
             <div class="col-xs-5" *ngIf="contact.key != 'Linkedin' && !editMode">
                 {{contact.value}}
             </div>
-            <div class="col-xs-7" style="padding: 2px;margin: 2px 2px;width: 500px;" *ngIf="contact.key != 'Linkedin' && editMode">
-              <input style="width: 500px;" type="text"  [(ngModel)]="contact.value"> 
+            <div  class="col-xs-7" style="padding: 2px;margin: 2px 2px;width: 500px;" *ngIf="contact.key != 'Linkedin' && editMode">
+              <input (ngModelChange)="changesMade=true" style="width: 500px;" type="text"  [(ngModel)]="contact.value"> 
             </div>
             <div class="col-xs-7" *ngIf="contact.key == 'Linkedin' && !editMode">
-            <a href='https://www.linkedin.com/in/vignesh-n-120a15121'>{{contact.value}}</a>
+            <a [href]="contact.value">{{contact.value}}</a>
             </div>
             <div class="col-xs-7" style="padding: 2px;margin: 2px 2px; width: 500px;" *ngIf="contact.key == 'Linkedin' && editMode">
-                <input style="width: 500px;" type="text" [(ngModel)]="contact.value"> 
+                <input (ngModelChange)="changesMade=true" style="width: 500px;" type="text" [(ngModel)]="contact.value" > 
         </div>
     </div>
     </div>

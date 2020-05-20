@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ContactModel } from './contact.model';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,9 @@ export class ContactComponent implements OnInit, OnDestroy{
   editMode : boolean = false;
   contactSubscription : Subscription;
   contact : ContactModel[];
+  loading : boolean = false;
+  changesMade : boolean = false;
+  error : string =null;
 
   constructor(private authService : AuthService,private ref : ChangeDetectorRef,
     private contactService :ContactService) { }
@@ -29,19 +32,47 @@ export class ContactComponent implements OnInit, OnDestroy{
 }
 
 onSave(){
-  this.contactSubscription = this.contactService.onSaveContact(this.contact).subscribe(res => {
-    console.log(res);
-  },error => {
-    console.log(error);
-  });
-  this.editMode=false;
+  if(this.changesMade){
+    this.loading=true;
+    this.contactSubscription = this.contactService.onSaveContact(this.contact).subscribe(res => {
+      this.loading=false;
+      console.log(res);
+    },error => {
+      this.loading=false;
+      console.log(error);
+    });
+    this.editMode=false;
+    this.changesMade=false;
+  }
+    else{
+      console.log("Not in edited")
+    }
   }
 
+  onCancel(){
+    if(!this.changesMade)
+    this.editMode=false;
+    else{
+      this.error="Do you want to proceed further without saving ?";
+    }
+  }
+
+  onHandleError(){
+    this.error=null;
+  }
+
+  onOk(){
+    this.error=null;
+    this.onFetch();
+  }
   onFetch(){
+    this.loading=true;
     this.contactService.onFetchContact().subscribe(res  => {
       this.contact=res;
+    this.loading=false;
     },error => {
       console.log(error);
+    this.loading=false;
     });
   }
 
