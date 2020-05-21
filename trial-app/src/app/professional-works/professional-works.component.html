@@ -1,21 +1,36 @@
 <div class="panel-group">
+    <div *ngIf="Organisations.length == 0 && !isAuthenticated">
+        <p>No details found. Authenticate to add details.</p>
+    </div>
     <div *ngIf="loading" style="text-align: center;">
         <app-spinner></app-spinner>
     </div>
     <div *ngIf="error">
         <app-confirmation [message]="error" (ok)="onOk()" (close)="error = null"></app-confirmation>
     </div>
-    <div style="height: 24px;"  *ngIf="isAuthenticated && !loading">
-        <div class="glyphicon glyphicon-remove pull-right"  (click)="onCancel()"
-        style="cursor: pointer;padding-left: 8px; padding-right: 16px;" data-toggle="tooltip" title="Cancel Changes"></div>
-        <div class="glyphicon glyphicon-floppy-disk pull-right" (click)="onSave()"
-        style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
-        <div  class="glyphicon glyphicon-pencil pull-right"  (click)="editMode=true"
-        style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
+    <div>
+        <div style="cursor: pointer;height:40px" *ngIf="isAuthenticated && !loading">
+            <button  class="btn btn-primary pull-left"
+            style="margin-left: 8px;cursor: pointer;"(click)="addOrganisation()">Add</button>
+            <button class="btn btn-danger pull-left"  
+            style="margin-left: 8px;cursor: pointer;" [disabled]="Organisations.length == 0"
+             (click)="deleteOrganisation()">Delete</button>
+            <div class="glyphicon glyphicon-remove pull-right"  (click)="onCancel()"
+            style="cursor: pointer;padding-left: 8px; padding-right: 16px;margin-top: 8px;" 
+            data-toggle="tooltip" title="Cancel Changes"></div>
+            <div class="glyphicon glyphicon-floppy-disk pull-right" (click)="onSave()"
+            style="cursor: pointer;padding-left: 8px;margin-top: 8px;" data-toggle="tooltip" 
+            title="Save"></div>
+            <div  class="glyphicon glyphicon-pencil pull-right"  (click)="editMode=true"
+            style="cursor: pointer; margin-top: 8px;" data-toggle="tooltip" title="Edit"></div>
+        </div>
+    </div>
+    <div *ngIf="Organisations.length == 0 && isAuthenticated && !loading" style="margin-left: 8px;">
+        <p>Click Add to get started.</p>
     </div>
     <div *ngIf="!loading">
         <div class="panel panel-default" style="cursor: pointer;"  *ngFor="let Organisation of Organisations">
-            <div class="panel-heading" >
+            <div class="panel-heading"  [style]=" editMode ? 'height: 48px;' : 'height: 40px;'" >
                     <strong *ngIf="!editMode">{{Organisation.name}}</strong>
                     <input *ngIf="editMode" type="text" [(ngModel)]="Organisation.name" 
                     (ngModelChange)="changesMade=true" style ="width: 500px;">
@@ -41,7 +56,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-3" [style]="editMode ? 'margin-top: 8px;' : 'margin-top: 0px;'">
-                        Technologies worked with
+                        Tools and Technologies
                         </div>
                         <div class="col-xs-9" *ngIf="!editMode">
                             {{Organisation.technologies}}

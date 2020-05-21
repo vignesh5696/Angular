@@ -1,11 +1,22 @@
 <div class="panel-group">
-    <div style="height: 24px;"  *ngIf="isAuthenticated">
+    <div *ngIf="qualifications.length == 0 && !isAuthenticated">
+        <p>No details found. Authenticate to add details.</p>
+    </div>
+    <div style="height: 40px;"  *ngIf="isAuthenticated && !loading">
+        <button  class="btn btn-primary pull-left"
+        style="margin-left: 8px;cursor: pointer;"(click)="addQualification()">Add</button>
+        <button class="btn btn-danger pull-left"  
+        style="margin-left: 8px;cursor: pointer;" [disabled]="qualifications.length == 0"
+         (click)="deleteQualification()">Delete</button>
         <div class="glyphicon glyphicon-remove pull-right"  (click)="onCancel()"
-        style="cursor: pointer;padding-left: 8px; padding-right: 16px;" data-toggle="tooltip" title="Cancel Changes"></div>
+        style="cursor: pointer;padding-left: 8px; padding-right: 16px;margin-top: 8px;" data-toggle="tooltip" title="Cancel Changes"></div>
         <div class="glyphicon glyphicon-floppy-disk pull-right" (click)="onSave()"
-        style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
+        style="cursor: pointer;padding-left: 8px;margin-top: 8px;" data-toggle="tooltip" title="Save"></div>
         <div  class="glyphicon glyphicon-pencil pull-right"  (click)="editMode=true"
-        style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
+        style="cursor: pointer;margin-top: 8px;" data-toggle="tooltip" title="Edit"></div>
+    </div>
+    <div *ngIf="qualifications.length == 0 && isAuthenticated && !loading" style="margin-left: 8px;">
+        <p>Click Add to get started.</p>
     </div>
     <div *ngIf="loading" style="text-align: center;">
         <app-spinner></app-spinner>
@@ -16,7 +27,7 @@
     <div *ngIf="!loading" >
         <div class="panel panel-default" style="cursor: pointer;"  
         *ngFor="let qualification of qualifications">
-            <div class="panel-heading">
+            <div class="panel-heading" [style]=" editMode ? 'height: 48px;' : 'height: 40px;'">
                 <strong *ngIf="!editMode">{{qualification.degree}}</strong>
                 <input *ngIf="editMode" style="width: 500px;" type="text"
                 [(ngModel)]="qualification.degree"  (ngModelChange)="changesMade=true"/>

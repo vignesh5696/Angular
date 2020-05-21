@@ -36,6 +36,17 @@ export class EduComponent implements OnInit, OnDestroy {
     this.onFetch();
   }
 
+  addQualification(){
+    this.qualifications.push(new EduModel("","","",""));
+    this.changesMade = true ;
+    this.editMode = true;
+  }
+
+  deleteQualification(){
+    this.qualifications.pop();
+    this.changesMade = true ;
+  }
+
   onCancel(){
     if(!this.changesMade){
       this.editMode = false;
@@ -70,7 +81,11 @@ export class EduComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.changesMade=false;
     this.fetchSubscription = this.eduService.onFetchEdu().subscribe(res => {
+    if(res)
     this.qualifications=res;
+    else{
+      this.qualifications=[];
+    }
     this.loading=false;
   },error => {
     console.log(error);

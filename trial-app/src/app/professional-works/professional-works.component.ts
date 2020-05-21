@@ -36,6 +36,17 @@ export class ProfessionalWorksComponent implements OnInit, OnDestroy {
     this.onFetch();
   }
 
+  deleteOrganisation(){
+    this.Organisations.pop();
+    this.changesMade = true ;
+  }
+
+  addOrganisation(){
+    this.Organisations.push(new ProfessionalWorksModel("","","",""));
+    this.changesMade = true ;
+    this.editMode = true;
+  }
+
   collapse(element : HTMLElement){
     element.className= element.className=="panel-body collapse in" ? "panel-body collapse" :"panel-body collapse in"
   }
@@ -76,12 +87,17 @@ export class ProfessionalWorksComponent implements OnInit, OnDestroy {
   onFetch(){
     this.loading=true;
     this.fetchSubscription = this.professionalWorksService.onFetchProfessionalworks().subscribe(res => {
+      if( res )
       this.Organisations = res.slice(0,1)[0];
+      else{
+        this.Organisations=[];
+      }
       this.loading = false;
     },err => {
       console.log(err);
       this.loading = false;
     });
+    this.changesMade = false;
   }
 
   ngOnDestroy(){

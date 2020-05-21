@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TimelineModel } from './timeline.model';
-import { Subject } from 'rxjs';
 import { ProfessionalWorksService } from 'src/app/professional-works/professional-works.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class TimelineComponent implements OnInit {
   @Input() editMode : boolean;
   @Output() edited = new EventEmitter<boolean>();
 
-  timelines : TimelineModel[] = [
+  timelines : TimelineModel[] =  [
     // new TimelineModel("2017","HUEzfgddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
     // new TimelineModel("2017","HUEzfgddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
     // new TimelineModel("2017","HUE")
@@ -22,11 +21,22 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.professionalWorksService.fetchTimelineData())
   this.timelines = this.professionalWorksService.fetchTimelineData();
   }
 
   changesMade(){
     this.edited.emit(true);
     this.professionalWorksService.getTimelineData(this.timelines);
+  }
+
+  addTimeline(){
+    this.timelines.push(new TimelineModel("",""));
+    this.edited.emit(true);
+  }
+
+  deleteTimeline(){
+    this.timelines.pop();
+    this.edited.emit(true);
   }
 }

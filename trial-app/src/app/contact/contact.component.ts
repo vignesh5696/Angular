@@ -16,7 +16,7 @@ export class ContactComponent implements OnInit, OnDestroy{
   editMode : boolean = false;
   contactSubscription : Subscription;
   fetchContactSubscription : Subscription;
-  contact : ContactModel[];
+  contact : ContactModel[] = [];
   loading : boolean = false;
   changesMade : boolean = false;
   error : string =null;
@@ -30,6 +30,18 @@ export class ContactComponent implements OnInit, OnDestroy{
       this.ref.detectChanges();
   })
   this.onFetch();
+}
+
+deleteContact(){
+  this.contact.pop();
+  this.changesMade = true ;
+  this.editMode = true;
+}
+
+addContact(){
+  this.contact.push(new ContactModel("",""));
+  this.editMode = true;
+  this.changesMade = true;
 }
 
 onSave(){
@@ -69,7 +81,11 @@ onSave(){
   onFetch(){
     this.loading=true;
     this.fetchContactSubscription = this.contactService.onFetchContact().subscribe(res  => {
+      if(res)
       this.contact=res;
+      else{
+        this.contact=[];
+      }
     this.loading=false;
     },error => {
       console.log(error);

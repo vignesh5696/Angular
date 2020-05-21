@@ -26,6 +26,7 @@ export class ProfessionalWorksService{
     onFetchProfessionalworks(){
         return this.http.get<[]>( "https://vignesh-nagarajan.firebaseio.com/professionalworks.json").pipe(
             tap(res => {
+                if(res)
                 this.timelineData=res.slice(1)[0];
             })
         )
@@ -33,6 +34,7 @@ export class ProfessionalWorksService{
 
     getTimelineData(timelineData : TimelineModel[]){
         this.timelineData = timelineData;
+        console.log(this.timelineData)
     }
 
     fetchTimelineData(){

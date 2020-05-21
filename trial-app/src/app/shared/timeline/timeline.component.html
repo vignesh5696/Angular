@@ -1,40 +1,51 @@
+<div style="cursor: pointer;height:40px">
+    <button  *ngIf="editMode" class="btn btn-danger pull-right"  
+    style="margin-left: 8px;cursor: pointer;" [disabled]="timelines.length == 0" (click)="deleteTimeline()">Delete</button>
+    <button   *ngIf="editMode"class="btn btn-primary pull-right"
+    style="margin-left: 8px;cursor: pointer;"(click)="addTimeline()">Add</button>
+</div>
 <div class="well" style="background-color: white;margin-bottom: 0px; height: 314px; overflow-x: auto;">
-    <ul  class="timeline" *ngFor="let timeline of timelines;let i = index">
-        <li *ngIf="i%2==0 ;else ref">
-            <div class="timeline-panel">
-                <div class="timeline-heading">
-                    <h4  *ngIf="!editMode" class="timeline-title">{{timeline.period}}</h4>
-                    <input *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
-                    [(ngModel)]="timeline.period" style="margin-top: 8px; width: 200px;"/>
-                </div>
-                <div class="timeline-body" style="word-wrap: break-word;">
-                    <p *ngIf="!editMode">
-                     {{timeline.works}}
-                    </p>
-                    <textarea *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
-                        [(ngModel)]="timeline.works" 
-                        style="height: 200px; width: 300px;margin-top: 8px;"></textarea>
-                </div>
-            </div>
-        </li>
-        <ng-template #ref>
-            <li class="timeline-inverted">
+    <div *ngIf="timelines.length == 0 ">
+        No Timelines. Add new timeline in edit mode.
+    </div>
+    <div>
+        <ul  class="timeline" *ngFor="let timeline of timelines;let i = index">
+            <li *ngIf="i%2==0 ;else ref">
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4 *ngIf="!editMode" class="timeline-title">{{timeline.period}}</h4>
+                        <h4  *ngIf="!editMode" class="timeline-title">{{timeline.period}}</h4>
                         <input *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
-                         [(ngModel)]="timeline.period" style="margin-top: 8px; width: 200px;"/>
+                        [(ngModel)]="timeline.period" style="margin-top: 8px; width: 200px;"/>
                     </div>
                     <div class="timeline-body" style="word-wrap: break-word;">
                         <p *ngIf="!editMode">
                          {{timeline.works}}
                         </p>
                         <textarea *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
-                        [(ngModel)]="timeline.works" 
-                        style="height: 200px; width: 300px;margin-top: 8px;"></textarea>
+                            [(ngModel)]="timeline.works" 
+                            style="height: 200px; width: 300px;margin-top: 8px;"></textarea>
                     </div>
                 </div>
             </li>
-        </ng-template>
-    </ul>
+            <ng-template #ref>
+                <li class="timeline-inverted">
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 *ngIf="!editMode" class="timeline-title">{{timeline.period}}</h4>
+                            <input *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
+                             [(ngModel)]="timeline.period" style="margin-top: 8px; width: 200px;"/>
+                        </div>
+                        <div class="timeline-body" style="word-wrap: break-word;">
+                            <p *ngIf="!editMode">
+                             {{timeline.works}}
+                            </p>
+                            <textarea *ngIf="editMode" type="text" (ngModelChange)="changesMade()"
+                            [(ngModel)]="timeline.works" 
+                            style="height: 200px; width: 300px;margin-top: 8px;"></textarea>
+                        </div>
+                    </div>
+                </li>
+            </ng-template>
+        </ul>
+    </div>
 </div>
