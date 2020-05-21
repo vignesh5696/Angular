@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   subscription : Subscription;
   editMode : boolean = false;
   homeSubscription : Subscription;
+  fetchSubscription : Subscription;
   loading : boolean = false;
   changesMade : boolean = false;
   error : string =null;
@@ -40,7 +41,6 @@ export class HomeComponent implements OnInit {
           params: new HttpParams().set('auth',user.token)
         })})).subscribe(res => {
         this.loading=false;
-        console.log(res);
       },error => {
         this.loading=false;
         console.log(error);
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
     }
     onFetch(){
       this.loading=true;
-      this.http.get<{body:""}>("https://vignesh-nagarajan.firebaseio.com/home.json").subscribe(res  => {
+      this.fetchSubscription = this.http.get<{body:""}>("https://vignesh-nagarajan.firebaseio.com/home.json").subscribe(res  => {
         this.content=res;
       this.loading=false;
       },error => {
@@ -87,6 +87,8 @@ export class HomeComponent implements OnInit {
       this.subscription.unsubscribe();
       if(this.homeSubscription)
       this.homeSubscription.unsubscribe();
+      if(this.fetchSubscription)
+      this.fetchSubscription.unsubscribe();
     }
 
 }

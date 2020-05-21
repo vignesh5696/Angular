@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit,  ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { EduModel } from './edu.model';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,7 @@ export class EduComponent implements OnInit, OnDestroy {
   isAuthenticated : boolean = false;
   subscription : Subscription;
   eduSubscription : Subscription;
+  fetchSubscription : Subscription;
   editMode : boolean = false;
   loading : boolean = false;
   changesMade : boolean = false;
@@ -53,7 +54,6 @@ export class EduComponent implements OnInit, OnDestroy {
     if(this.changesMade){
       this.loading=true;
       this.eduSubscription=this.eduService.onSaveEdu(this.qualifications).subscribe(res => {
-        console.log(res);
       this.loading=false;
       },err => {
         console.log(err);
@@ -63,12 +63,13 @@ export class EduComponent implements OnInit, OnDestroy {
     }else{
       console.log("No changes")
     }
+    this.changesMade=false;
   }
 
   onFetch(){
     this.loading = true;
     this.changesMade=false;
-  this.eduService.onFetchEdu().subscribe(res => {
+    this.fetchSubscription = this.eduService.onFetchEdu().subscribe(res => {
     this.qualifications=res;
     this.loading=false;
   },error => {
@@ -87,6 +88,9 @@ export class EduComponent implements OnInit, OnDestroy {
     }
     if(this.eduSubscription){
       this.eduSubscription.unsubscribe();
+    }
+    if(this.fetchSubscription){
+      this.fetchSubscription.unsubscribe();
     }
   }
 

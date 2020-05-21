@@ -1,15 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ProfessionalWorksModel } from './professional-works.model';
 import { AuthService } from '../auth/auth.service';
 import { ProfessionalWorksService } from './professional-works.service';
-import { TimelineModel } from '../shared/timeline/timeline.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-professional-works',
   templateUrl: './professional-works.component.html',
   styleUrls: ['./professional-works.component.css']
 })
-export class ProfessionalWorksComponent implements OnInit {
+export class ProfessionalWorksComponent implements OnInit, OnDestroy {
 
   showTimeline : boolean = false;
   isAuthenticated : boolean = false;
@@ -17,6 +17,9 @@ export class ProfessionalWorksComponent implements OnInit {
   changesMade : boolean = false;
   loading : boolean = false;
   error : string = null;
+  subscription : Subscription;
+  saveSubscription : Subscription;
+  fetchSubscription : Subscription;
 
   Organisations : ProfessionalWorksModel[] = [
     // new ProfessionalWorksModel("Infoview Technologies pvt. ltd","Junior Engineer","2017 - Till date",
@@ -26,7 +29,7 @@ export class ProfessionalWorksComponent implements OnInit {
     private professionalWorksService : ProfessionalWorksService) { }
 
   ngOnInit(): void {
-    this.authService.user.subscribe(user =>{
+   this.subscription = this.authService.user.subscribe(user =>{
       this.isAuthenticated = !!user;
       this.ref.detectChanges();
     });
@@ -58,7 +61,7 @@ export class ProfessionalWorksComponent implements OnInit {
   onSave(){
     if(this.changesMade){
     this.loading=true;
-    this.professionalWorksService.onSaveProfessionalworks(this.Organisations).subscribe(res =>{
+    this.saveSubscription = this.professionalWorksService.onSaveProfessionalworks(this.Organisations).subscribe(res =>{
       this.loading = false;
     },err => {
       console.log(err);
@@ -67,17 +70,27 @@ export class ProfessionalWorksComponent implements OnInit {
       console.log("No changes")
     }
     this.editMode=false;
+    this.changesMade=false;
   }
 
   onFetch(){
     this.loading=true;
-    this.professionalWorksService.onFetchProfessionalworks().subscribe(res => {
+    this.fetchSubscription = this.professionalWorksService.onFetchProfessionalworks().subscribe(res => {
       this.Organisations = res.slice(0,1)[0];
       this.loading = false;
     },err => {
       console.log(err);
       this.loading = false;
     });
+  }
+
+  ngOnDestroy(){
+    if(this.subscription)
+    this.subscription.unsubscribe();
+    if(this.saveSubscription)
+    this.saveSubscription.unsubscribe();
+    if(this.fetchSubscription)
+    this.fetchSubscription.unsubscribe();
   }
 
 }

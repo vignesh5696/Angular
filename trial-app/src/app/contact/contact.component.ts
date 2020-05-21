@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ContactModel } from './contact.model';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,7 @@ export class ContactComponent implements OnInit, OnDestroy{
   subscription : Subscription;
   editMode : boolean = false;
   contactSubscription : Subscription;
+  fetchContactSubscription : Subscription;
   contact : ContactModel[];
   loading : boolean = false;
   changesMade : boolean = false;
@@ -36,7 +37,6 @@ onSave(){
     this.loading=true;
     this.contactSubscription = this.contactService.onSaveContact(this.contact).subscribe(res => {
       this.loading=false;
-      console.log(res);
     },error => {
       this.loading=false;
       console.log(error);
@@ -68,7 +68,7 @@ onSave(){
   }
   onFetch(){
     this.loading=true;
-    this.contactService.onFetchContact().subscribe(res  => {
+    this.fetchContactSubscription = this.contactService.onFetchContact().subscribe(res  => {
       this.contact=res;
     this.loading=false;
     },error => {
@@ -83,6 +83,8 @@ onSave(){
     this.subscription.unsubscribe();
     if(this.contactSubscription)
     this.contactSubscription.unsubscribe();
+    if(this.fetchContactSubscription)
+    this.fetchContactSubscription.unsubscribe();
   }
 
 }

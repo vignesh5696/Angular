@@ -6,7 +6,6 @@ import { MyworksComponent } from './myworks/myworks.component';
 import { ExtraworksComponent } from './extraworks/extraworks.component';
 import { ProfessionalWorksComponent } from './professional-works/professional-works.component';
 import { EduComponent } from './edu/edu.component';
-import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 

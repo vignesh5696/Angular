@@ -15,14 +15,13 @@
             </div>
             <app-confirmation [message]="error" 
             *ngIf="error" (close)="onHandleError()" (ok)="onOk()"></app-confirmation>
-            <div class="panel-body" *ngIf="!loading">
+            <div class="panel-body" *ngIf="!loading" style="min-height: 200px;">
                 <div class="row">
-                    <div class="col-xs-12" *ngIf="!editMode">
-                        <p>{{content.body}}</p>
-                    </div>
-                    <div class="col-xs-12"  *ngIf="editMode">
-                        <textarea (ngModelChange)="changesMade=true" [(ngModel)]="content.body"
-                        cols="30" rows="10"></textarea>
+                    <div class="col-xs-12">
+                        <textarea readonly  *ngIf="!editMode" style="width: 100%;min-height: 300px;">
+                            {{content.body}}</textarea>
+                        <textarea  *ngIf="editMode" (ngModelChange)="changesMade=true" 
+                        [(ngModel)]="content.body" style="width: 100%;min-height: 300px;"></textarea>
                     </div>
                 </div>
             </div>
