@@ -18,10 +18,10 @@
             <div class="panel-body" *ngIf="!loading" style="min-height: 200px;">
                 <div class="row">
                     <div class="col-xs-12">
-                        <textarea readonly  *ngIf="!editMode" style="width: 100%;min-height: 300px;">
+                        <textarea readonly  *ngIf="!editMode" style="width: 100%;min-height: 400px;">
                             {{content.body}}</textarea>
                         <textarea  *ngIf="editMode" (ngModelChange)="changesMade=true" 
-                        [(ngModel)]="content.body" style="width: 100%;min-height: 300px;"></textarea>
+                        [(ngModel)]="content.body" style="width: 100%;min-height: 400px;"></textarea>
                     </div>
                 </div>
             </div>
