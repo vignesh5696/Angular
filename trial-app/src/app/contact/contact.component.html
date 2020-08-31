@@ -5,11 +5,13 @@
         style="cursor: pointer;background-color: blue;color: white;border-top: 0px;">Save</button> -->
         <!-- <button class="pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
         style="cursor: pointer; background-color: green;color: white;border-top: 0px;">Edit</button> -->
-        <div class="glyphicon glyphicon-remove pull-right" *ngIf="isAuthenticated"  (click)="onCancel()"
+        <div *ngIf="editMode && isAuthenticated" class="glyphicon glyphicon-remove pull-right" 
+        (click)="onCancel()"
         style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Cancel Changes"></div>
-        <div class="glyphicon glyphicon-floppy-disk pull-right" *ngIf="isAuthenticated"  (click)="onSave()"
+        <div *ngIf="editMode && isAuthenticated" class="glyphicon glyphicon-floppy-disk pull-right"
+        (click)="onSave()"
         style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
-        <div  class="glyphicon glyphicon-pencil pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
+        <div *ngIf="!editMode && isAuthenticated && contact.length!=0" class="glyphicon glyphicon-pencil pull-right"
         style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
    </div>
    <div *ngIf="loading" style="text-align: center;">
@@ -17,12 +19,27 @@
 </div>
 <app-confirmation [message]="error" *ngIf="error" (close)="onHandleError()" (ok)="onOk()"></app-confirmation>
     <div class="panel-body" *ngIf="!loading">
+        <div style="height: 40px;" *ngIf="isAuthenticated">
+            <button class="btn btn-danger pull-right"  
+            style="margin-left: 8px;cursor: pointer;" [disabled]="contact.length==0"
+             (click)="deleteContact()">Delete</button>
+            <button  class="btn btn-primary pull-right"
+            style="margin-left: 8px;cursor: pointer;"(click)="addContact()">Add</button>
+        </div>
+        <div *ngIf="contact.length==0 && !isAuthenticated">
+            <p>No details found. Authenticate to add details</p>
+        </div>
     <div class="contaier" *ngFor="let contact of contact">
         <div class="row">
-            <div class="col-xs-2">
+            <div class="col-xs-2"  *ngIf="!editMode">
                 {{contact.key}}
             </div>
-            <div class="col-xs-1">
+            <div  class="col-xs-2" style="padding: 2px;margin: 2px 2px;width: 200px;" 
+            *ngIf="editMode">
+                <input (ngModelChange)="changesMade=true" style="width: 200px;" type="text"  
+                [(ngModel)]="contact.key"> 
+              </div>
+            <div class="col-xs-1" [style]="editMode ? 'padding-top:4px': ''"> 
             <strong>:</strong> 
             </div>
             <div class="col-xs-5" *ngIf="contact.key != 'Linkedin' && !editMode">

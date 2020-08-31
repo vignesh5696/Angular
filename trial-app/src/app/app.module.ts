@@ -18,6 +18,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { PlaceholderDirective } from './shared/placeholder.directive';
 import { ConfirmationComponent } from './shared/confirmation/confirmation.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -36,7 +37,8 @@ import { ConfirmationComponent } from './shared/confirmation/confirmation.compon
     SpinnerComponent,
     AlertComponent,
     PlaceholderDirective,
-    ConfirmationComponent
+    ConfirmationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

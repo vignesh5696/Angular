@@ -19,7 +19,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li style="cursor: pointer;">
-                    <a *ngIf="!isAuthenticated" routerLink="/auth">LOGIN</a>
+                    <!-- <a *ngIf="!isAuthenticated" routerLink="/auth">LOGIN</a> -->
                     <a *ngIf="isAuthenticated" routerLink="/auth" (click)="onLogout()">LOGOUT</a>
                 </li>
             </ul>
