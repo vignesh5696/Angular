@@ -5,11 +5,13 @@
         style="cursor: pointer;background-color: blue;color: white;border-top: 0px;">Save</button> -->
         <!-- <button class="pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
         style="cursor: pointer; background-color: green;color: white;border-top: 0px;">Edit</button> -->
-        <div class="glyphicon glyphicon-remove pull-right" *ngIf="isAuthenticated"  (click)="onCancel()"
+        <div *ngIf="editMode && isAuthenticated" class="glyphicon glyphicon-remove pull-right" 
+        (click)="onCancel()"
         style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Cancel Changes"></div>
-        <div class="glyphicon glyphicon-floppy-disk pull-right" *ngIf="isAuthenticated"  (click)="onSave()"
+        <div *ngIf="editMode && isAuthenticated" class="glyphicon glyphicon-floppy-disk pull-right"
+        (click)="onSave()"
         style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
-        <div  class="glyphicon glyphicon-pencil pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
+        <div *ngIf="!editMode && isAuthenticated && contact.length!=0" class="glyphicon glyphicon-pencil pull-right"
         style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
    </div>
    <div *ngIf="loading" style="text-align: center;">

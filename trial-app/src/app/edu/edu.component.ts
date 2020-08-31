@@ -45,6 +45,7 @@ export class EduComponent implements OnInit, OnDestroy {
   deleteQualification(){
     this.qualifications.pop();
     this.changesMade = true ;
+    this.editMode = true ;
   }
 
   onCancel(){

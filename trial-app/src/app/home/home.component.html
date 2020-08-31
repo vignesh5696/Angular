@@ -3,11 +3,14 @@
         <div class="panel panel-default">
             <div class="panel-heading">
               <strong>Welcome!</strong>
-              <div class="glyphicon glyphicon-remove pull-right" *ngIf="isAuthenticated"  (click)="onCancel()"
+              <div class="glyphicon glyphicon-remove pull-right" *ngIf="isAuthenticated && editMode"  
+              (click)="onCancel()"
               style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Cancel Changes"></div>
-              <div class="glyphicon glyphicon-floppy-disk pull-right" *ngIf="isAuthenticated"  (click)="onSave()"
+              <div class="glyphicon glyphicon-floppy-disk pull-right" *ngIf="isAuthenticated && editMode"  
+              (click)="onSave()"
               style="cursor: pointer;padding-left: 8px;" data-toggle="tooltip" title="Save"></div>
-              <div  class="glyphicon glyphicon-pencil pull-right" *ngIf="isAuthenticated" (click)="editMode=true"
+              <div  class="glyphicon glyphicon-pencil pull-right" *ngIf="isAuthenticated && !editMode" 
+              (click)="editMode=true" 
               style="cursor: pointer;" data-toggle="tooltip" title="Edit"></div>
             </div>
             <div *ngIf="loading" style="text-align: center;">

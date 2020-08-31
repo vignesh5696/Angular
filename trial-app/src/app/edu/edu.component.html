@@ -8,11 +8,11 @@
         <button class="btn btn-danger pull-left"  
         style="margin-left: 8px;cursor: pointer;" [disabled]="qualifications.length == 0"
          (click)="deleteQualification()">Delete</button>
-        <div class="glyphicon glyphicon-remove pull-right"  (click)="onCancel()"
+        <div *ngIf="editMode" class="glyphicon glyphicon-remove pull-right"  (click)="onCancel()"
         style="cursor: pointer;padding-left: 8px; padding-right: 16px;margin-top: 8px;" data-toggle="tooltip" title="Cancel Changes"></div>
-        <div class="glyphicon glyphicon-floppy-disk pull-right" (click)="onSave()"
+        <div *ngIf="editMode" class="glyphicon glyphicon-floppy-disk pull-right" (click)="onSave()"
         style="cursor: pointer;padding-left: 8px;margin-top: 8px;" data-toggle="tooltip" title="Save"></div>
-        <div  class="glyphicon glyphicon-pencil pull-right"  (click)="editMode=true"
+        <div *ngIf="!editMode && qualifications.length != 0" class="glyphicon glyphicon-pencil pull-right"  (click)="editMode=true"
         style="cursor: pointer;margin-top: 8px;" data-toggle="tooltip" title="Edit"></div>
     </div>
     <div *ngIf="qualifications.length == 0 && isAuthenticated && !loading" style="margin-left: 8px;">

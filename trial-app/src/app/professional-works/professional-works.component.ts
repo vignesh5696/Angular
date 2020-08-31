@@ -39,6 +39,7 @@ export class ProfessionalWorksComponent implements OnInit, OnDestroy {
   deleteOrganisation(){
     this.Organisations.pop();
     this.changesMade = true ;
+    this.editMode = true ;
   }
 
   addOrganisation(){
