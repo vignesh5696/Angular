@@ -1,0 +1,221 @@
+<div style="position: fixed;height: 48px;background: #029bf5;width: 100%;z-index: 1">
+<div style="height: 32px;margin: 8px;">
+<h2 style="color: white;">Organisation Structure</h2> 
+</div>
+<div style="z-index: 1;">
+    <button 
+    style="margin:8px 4px 8px 8px;background-color: lightgray;font-size: 120%;width: 32px; 
+    cursor: pointer; padding : 4px;border:none" 
+    (click)="onZoomIn()">+</button>
+    <button 
+    style="margin:8px 8px 8px 4px; background-color: lightgray;font-size: 120%;width: 32px; 
+    cursor: pointer;padding : 4px;border:none"
+    (click)="onZoomOut()">-</button>
+    <span class="material-icons" (click)="exportAsXLSX()" style="float:right;padding:8px;margin-right:8px">
+        save_alt
+      </span>
+</div>
+</div>
+<div id="wrapper">
+    <div id="container"  [ngStyle]="{zoom:Percentage}" >
+        <ol class="organizational-chart">
+            <li>
+                <div>
+                    <h4>Infoview</h4>
+                    <span>[3000]</span>
+                </div>
+                <ol>
+                    <li>
+                        <div>
+                            <h4>WAP</h4>
+                            <span>[1000]</span>
+                        </div>
+                        <ol>
+                            <li>
+                                <div>
+                                    <h4>AC</h4>
+                                    <span>[500]</span>
+                                </div>
+                                <ol>
+                                    <li>
+                                        <div (click)="onProfileClick('Rajmohan Natesan')"
+                                        style="cursor: pointer;">
+                                            <h4>Rajmohan Natesan</h4>
+                                            <span>[300]</span>
+                                        </div>
+                                        <ol>
+                                            <li>
+                                                <div>
+                                                    <h4>HUE-AC-V4-Pattern2</h4>
+                                                    <span>[100]</span>
+                                                </div>
+                                                <ol>
+                                                    <li>
+                                                        <div>
+                                                            <h4>CAM</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>CCM</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>CFM</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>Auto Test</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <h4>HUE-AC-V4-Pattern3</h4>
+                                                    <span>[100]</span>
+                                                </div>
+                                                <ol>
+                                                    <li>
+                                                        <div >
+                                                            <h4>ASA</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>ASV</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>HC</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>SS</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <h4>HUE-AC-V4-Pattern0</h4>
+                                                    <span>[100]</span>
+                                                </div>
+                                                <ol>
+                                                    <li>
+                                                        <div>
+                                                            <h4>AC CI</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>Customer Support</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>HUE-AC Expense</h4>
+                                                            <span>[50]</span>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                        </ol>
+                                    </li>    
+                                    <li>
+                                        <div (click)="onProfileClick('Karthick Raj Jayaraman')"
+                                        style="cursor: pointer;">
+                                            <h4>Karthick Raj Jayaraman</h4>
+                                            <span>[200]</span>
+                                        </div>
+                                        <ol>
+                                            <li>
+                                                <div>
+                                                    <h4>HUE-AC-V4-Pattern1</h4>
+                                                    <span>[100]</span>
+                                                </div>
+                                                <ol>
+                                                    <li>
+                                                        <div>
+                                                            <h4>CCM</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>CFW</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>CFW-QE</h4>
+                                                            <span>[50]</span>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <h4>HUE-AC-V4-Pattern3</h4>
+                                                    <span>[100]</span>
+                                                </div>
+                                                <ol>
+                                                    <li>
+                                                        <div>
+                                                            <h4>ASV</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>HC</h4>
+                                                            <span>[25]</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>LC</h4>
+                                                            <span>[50]</span>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                        </ol>
+                                    </li>  
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <div>
+                            <h4>WHI</h4>
+                            <span>[1000]</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <h4>RUT</h4> 
+                            <span>[1000]</span>
+                        </div>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+    </div>
+</div>

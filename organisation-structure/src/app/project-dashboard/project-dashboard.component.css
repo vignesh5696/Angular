@@ -1,6 +1,9 @@
-.card:hover{
-    transform : scale(1.09);
-}
+.example-card {
+    max-width: 400px;
+    padding:0px;
+    box-shadow: 4px 4px #1d5b77;
+  }
+  
 
 .module{
     display: inline-block;
@@ -12,4 +15,45 @@
     vertical-align: baseline;
     border-radius: .25rem;
     transition: color .15s
+}
+
+.card-content{
+    margin-bottom:0px;
+}
+
+.card-footer{
+    padding: 8px 8px;
+    margin: 0px;
+    height: 96px;
+}
+
+.personHover :hover{
+    transform : scale(1.9);
+}
+
+.searchSpan{
+    position: relative;
+    margin-left: 200px;
+}
+
+.searchArea{
+    height:32px;
+    width:500px;
+    font-size:14px;
+    outline:none;
+    border-radius:16px;
+    border-width: 1px;
+    text-indent: 20px;
+}
+
+
+
+@media (max-width : 907px){
+
+    .searchSpan{
+        margin-left: 32px;
+    }
+    .searchArea{
+        width: 200px;
+    }
 }

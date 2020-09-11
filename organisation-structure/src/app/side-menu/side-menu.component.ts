@@ -14,7 +14,6 @@ export class SideMenuComponent implements OnInit {
     this.urlName=this.route.snapshot.params['id'];
     this.route.params.subscribe((params : Params)=>{
       this.urlName=params['id'];
-      console.log(this.urlName);
     });
   }
 

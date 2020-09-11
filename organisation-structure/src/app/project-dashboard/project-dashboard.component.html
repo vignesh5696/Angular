@@ -1,41 +1,75 @@
-<div>
-    <div  style="position: fixed;width: 100%;">
-      <div style="font-size: 20px; padding: 8px;color: white;
-      background-color: darkslateblue;height: 48px;padding-left: 32px;">
-        Organisation Structure
-      </div>
-    <div  style="margin: 8px;font-size: 26px; height: 32px;font-weight: bolder;
-    padding: 8px;color: lightslategray;margin-left: 32px;">PROJECTS
-    <input type="text" style="height: 28px;width: 500px;margin-left:200px;font-size: 14px;outline:none" 
+<div style="min-width: 1054px; background: linear-gradient(to top,#ffd89b,#19547b);height:100%">
+  <div  style="position: fixed;width: 100%;z-index: 1;">
+    <div  style="margin: 8px;font-size: 26px; height: 48px;font-weight: bolder;
+    padding: 8px;color: white;margin-left: 32px;">PROJECTS
+    <span class="searchSpan">
+      <mat-icon *ngIf="searchFilter === ''"
+      style="position: absolute;padding: 5px 0px 0px 3px;font-size: 22px;color:#a08d8d">search</mat-icon>
+      <input type="text" class="searchArea" 
     placeholder=" Search by Project Name" [(ngModel)]="searchFilter" >
+    </span>
     </div>
     </div>
-    <div  style="padding-top: 88px;width:100%;padding-left:15px;padding-right :15px;">
-      <div class="row" style="margin: 16px 8px 8px 8px; width: 100%;overflow-y: scroll;height: 500px;">
-        <div class="col-xs-3" style="padding: 16px;" 
-        *ngFor="let project of projects  | filter : searchFilter : 'name';">
-            <div class="card"
-           style="width: 280px;box-shadow: 0px 4px 4px 0px lightgrey;cursor: pointer;height: 250px;">
-           <img [src]="getImage(project.name)" [alt]="project.name  | slice:0:5" style="height: 70px;width: 100px;" 
-           class="card-img-top">
-            <div class="card-body" style="padding: 8px;">
-              <h4 class="card-title">{{project.name}}</h4>
-              <div class="card-text">
-                <div style="height: 100px;">
-                  <div>
-                    <span class="badge" style="width:100px;font-size:85%">Modules</span>
-                    <span class="badge" style="width:100px;font-size:85%">Count</span>
+    <div  style="padding-top: 48px;width:100%;padding-left:15px;padding-right :15px;">
+        <div class="row"
+         style="margin:8px; width: 100%;height: 580px;padding: 16px;">
+          <div class="col-xs-3" style="padding: 8px;height: 248px;" 
+          *ngFor="let project of projects  | filter : searchFilter : 'name';">
+          <mat-card class="example-card" (dblclick)="onCardDoubleClick(project)" 
+          style="cursor: pointer;background: white;width: 232px;">
+              <mat-card-header style="padding: 8px 16px;height:48px;text-align: center;">
+                <div style="width: 100%;margin: 0px 0px 0px -32px;">
+                  <mat-card-title >{{project.name}}</mat-card-title>
+                </div>
+              </mat-card-header>
+              <mat-card-content class="card-content">
+                  <div style="height: 100px;">
+                    <div>
+                      <span class="module" style="width:100px;font-size:95%;">Total</span>
+                      <span class="module" style="width:100px;font-size:95%">{{project.ResourceCount}}</span>
+                    </div>
+                      <div *ngFor="let module of modules">
+                        <a [routerLink]="['/users']"  [queryParams]="{module : module.moduleName}" 
+                        class="module" style="width:100px;font-size:95%;"
+                        *ngIf="module.projectName===project.name">{{module.moduleName}}</a>
+                        <span class="module" style="width:100px;font-size:95%"
+                        *ngIf="module.projectName===project.name">{{module.moduleCount}}</span>
+                      </div>
+                    </div>
+              </mat-card-content>
+              <mat-card-footer class="card-footer" style="background-color: white;">
+                <div style="display: flex;text-align: center;">
+                  <div style="width: 50px;border-right: 1px solid lightgray;">PMO</div>
+                  <div style="width: 50px;border-right: 1px solid lightgray;">CL</div>
+                  <div style="width: 50px;border-right: 1px solid lightgray;">LL</div>
+                  <div style="width: 50px;padding-left: 6px;">Developer</div>
+                </div>
+                <div style="display: flex; text-align: center;border-bottom: 1px solid lightgray;">
+                  <div style="width: 50px;border-right: 1px solid lightgray;">
+                    4</div>
+                  <div style="width: 50px;border-right: 1px solid lightgray;">
+                    6</div>
+                  <div style="width: 50px;border-right: 1px solid lightgray;">
+                    18</div>
+                  <div style="width: 50px;">300</div>
+                </div>
+                <div style="display: flex; text-align: center;height:40px">
+                  <div (click)="showList()"
+                  class="personHover" style="width: 50px;border-right: 1px solid lightgray;">
+                    <mat-icon style="padding: 6px 0px;outline:none !important">list</mat-icon>    
                   </div>
-                  <div *ngFor="let module of modules">
-                    <span class="module"style="width:100px;font-size:80%"*ngIf="module.projectName===project.name">{{module.moduleName}}</span>
-                    <span class="module" style="width:100px;font-size:80%"*ngIf="module.projectName===project.name">{{module.moduleCount}}</span>
+                  <div (click)="showOrganisationStructure()"
+                   class="personHover" style="width: 100px;border-right: 1px solid lightgray;">
+                    <mat-icon  style="padding: 8px 0px;">person</mat-icon>  
+                  </div>
+                  <div  class="personHover" style="width: 50px;" (click)="onCardDownload(project.name)">
+                    <mat-icon style="padding: 8px;">file_download</mat-icon>
                   </div>
                 </div>
-                <div class="badge" style="background-color:darkslateblue;color: white;">Total Resource Count :</div>
-                {{project.ResourceCount}}</div>
-            </div>
+              </mat-card-footer>
+            </mat-card>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+</div>
+
