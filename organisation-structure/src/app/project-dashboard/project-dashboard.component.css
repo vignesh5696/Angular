@@ -3,7 +3,10 @@
     padding:0px;
     box-shadow: 4px 4px #1d5b77;
   }
-  
+
+a{
+    color: black;
+}
 
 .module{
     display: inline-block;

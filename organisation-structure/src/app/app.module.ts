@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AgGridModule } from 'ag-grid-angular';
 import { ExcelService } from './excel.service';
+import { FixedToolbarComponent } from './fixed-toolbar/fixed-toolbar.component';
 
 
 const appRoutes:Routes = [
@@ -32,6 +33,7 @@ const appRoutes:Routes = [
   {path:'organisation-structure',component:StructuralViewSampleComponent},
   { path: 'employees', component: IndexoutletComponent },
   { path: 'user', component: EmployeeProfileComponent },
+  {path:'1',component:ProjectDashboard2Component,pathMatch:'full'},
   {path:'',component:ProjectDashboardComponent,pathMatch:'full'}
   ]
 @NgModule({
@@ -46,7 +48,8 @@ const appRoutes:Routes = [
     StructuralViewComponent,
     StructuralViewSampleComponent,
     EmployeeProfileComponent,
-    IndexoutletComponent
+    IndexoutletComponent,
+    FixedToolbarComponent
   ],
   imports: [
     BrowserModule,

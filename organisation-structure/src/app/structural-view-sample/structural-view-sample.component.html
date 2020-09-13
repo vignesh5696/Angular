@@ -1,8 +1,5 @@
-<div style="position: fixed;height: 48px;background: #029bf5;width: 100%;z-index: 1">
-<div style="height: 32px;margin: 8px;">
-<h2 style="color: white;">Organisation Structure</h2> 
-</div>
-<div style="z-index: 1;">
+<app-fixed-toolbar></app-fixed-toolbar>
+<div style="z-index: 1;position:fixed;height:32px;width:100%;top:48px">
     <button 
     style="margin:8px 4px 8px 8px;background-color: lightgray;font-size: 120%;width: 32px; 
     cursor: pointer; padding : 4px;border:none" 
@@ -14,7 +11,6 @@
     <span class="material-icons" (click)="exportAsXLSX()" style="float:right;padding:8px;margin-right:8px">
         save_alt
       </span>
-</div>
 </div>
 <div id="wrapper">
     <div id="container"  [ngStyle]="{zoom:Percentage}" >
