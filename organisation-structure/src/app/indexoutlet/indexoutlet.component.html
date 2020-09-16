@@ -1,0 +1,42 @@
+<div style="position: fixed;height: 48px;background: #029bf5;width: 100%;">
+  <div style="height: 32px;margin: 8px;">
+  <h2 style="color: white;">Organisation Structure</h2> 
+  </div>
+  </div>
+  <div style="padding-top: 56px;">
+    <div style="height:16px; width:100%; clear:both;"></div>
+  
+    <div style="font-size: 12px;top:8px" class="parent">
+  
+      <mat-form-field [style.width.px]=327>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput type="search" id="filter-text-box" class="title-center"
+        (keyup)="onFilterTextBoxChanged($event)"
+         class="search-input">
+    </mat-form-field>
+    
+  </div>
+    <div  style="width: auto; height: 32px;">
+      <span style="float:left;padding:0;">
+          <span class="label">Count :</span>
+          <span class="stats" >{{counter}}</span>
+      </span>
+    <span class="material-icons" (click)="exportAsXLSX()" style="float:right;padding:0;margin-right:8px">
+      save_alt
+    </span>
+  </div>
+    <div>
+    <ag-grid-angular  [gridOptions]="gridOptions"
+    style="width: auto; height: 500px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [enableFilter]="true"
+    [enableSorting]="true"
+    (filterChanged)='onHeaderClick($event)'
+    >
+  </ag-grid-angular>
+  </div>
+  </div>
+    
+    

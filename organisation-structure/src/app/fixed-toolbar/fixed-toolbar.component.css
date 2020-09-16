@@ -1,0 +1,7 @@
+.fixedToolbar{
+    position: fixed;
+    height: 48px;
+    background: #029bf5;
+    width: 100%;
+    z-index: 1;
+}

@@ -1,0 +1,38 @@
+<div id="wrapper">
+    <div id="container">
+
+        <ol class="organizational-chart">
+            <li>
+                <div>
+                    <h1>Infoview</h1>
+                </div>
+                <ol>
+                    <li *ngFor="let project of projects">
+                        <div>
+                            <h2>{{project.project}}</h2>
+                        </div>
+                        <ol>
+                            <ng-container *ngFor="let module of Modules">
+                                <li *ngIf="project.project===module.project">
+                                    <div>
+                                        <h3>{{module.module}}</h3>
+                                    </div>
+                                    <ol>
+                                        <ng-container *ngFor="let PMO of PMOS">
+                                            <li *ngIf="module.module===PMO.module">
+                                                <div>
+                                                    <h4>{{PMO.PMO}}</h4>
+                                                </div>
+                                            </li>
+                                        </ng-container>   
+                                    </ol>
+                                </li>
+                            </ng-container>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+    </div>
+</div>

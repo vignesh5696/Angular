@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { ProjectService } from '../project-dashboard/project.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 interface project{
@@ -42,7 +43,7 @@ export class ProjectDashboard3Component implements OnInit {
    {projectName:"Google",moduleName : "Project 2" , moduleCount:300}
  ]; 
 
-constructor(private projectService : ProjectService){}
+constructor(private projectService : ProjectService, private route : Router){}
   ngOnInit(){
     // this.onProjectFetch();
   }
@@ -57,6 +58,10 @@ constructor(private projectService : ProjectService){}
        this.count++;
     });
     return this.count;
+  }
+
+  onCardDoubleClick(project : project){
+    this.route.navigate(['users'],{queryParams:{project:project.name}});
   }
 
 }

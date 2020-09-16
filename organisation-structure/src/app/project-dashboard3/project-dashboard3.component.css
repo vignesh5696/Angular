@@ -3,10 +3,6 @@
     padding:0px;
   }
   
- .example-card:hover{
-    transform : scale(1.09);
-}
-
 .module{
     display: inline-block;
     padding: .25em .4em;
