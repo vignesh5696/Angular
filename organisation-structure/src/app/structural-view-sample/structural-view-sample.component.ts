@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExcelService } from '../excel.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-structural-view-sample',
@@ -50,13 +52,20 @@ export class StructuralViewSampleComponent implements OnInit {
   }
 
   exportAsXLSX(){
-    this._snackBar.open("The File is downloading now", "", {
-      duration: 2000,
-      verticalPosition: 'bottom', 
-      horizontalPosition: 'left'
-    });
-      this.excelService.exportAsExcelFile(this.rowData, 'Employee Details');
-
+    var element = document.getElementById('org-chart');
+    window.scrollTo(0,0);
+    html2canvas(element).then((canvas) => {
+      this._snackBar.open("Downloading Organisation Structure in Pdf format", "", {
+        duration: 3000,
+        verticalPosition: 'bottom', 
+        horizontalPosition: 'left'
+      });
+      var imgdata = canvas.toDataURL('image/png');
+      var doc = new jsPDF();
+      var imgHeight = canvas.height * 208/canvas.width;
+      doc.addImage(imgdata,0,10,208,imgHeight);
+      doc.save("Organisation_Structure.pdf");
+    })
   }
 
 }
