@@ -8,14 +8,14 @@
     style="margin:8px 8px 8px 4px; background-color: lightgray;font-size: 120%;width: 32px; 
     cursor: pointer;padding : 4px;border:none"
     (click)="onZoomOut()">-</button>
-    <span class="material-icons" (click)="exportAsXLSX()" style="float:right;padding:8px;margin-right:8px">
+    <span class="material-icons" (click)="exportAsXLSX()" style="float:right;padding:8px;margin-right:8px;cursor: pointer;">
         save_alt
       </span>
 </div>
 <div id="wrapper">
     <div id="container"  [ngStyle]="{zoom:Percentage}" >
-        <ol class="organizational-chart">
-            <li>
+        <ol  class="organizational-chart">
+            <li id="org-chart">
                 <div>
                     <h4>Infoview</h4>
                     <span>[3000]</span>

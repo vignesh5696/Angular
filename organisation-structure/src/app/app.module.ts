@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AgGridModule } from 'ag-grid-angular';
 import { ExcelService } from './excel.service';
 import { FixedToolbarComponent } from './fixed-toolbar/fixed-toolbar.component';
+import { SampleViewStructure2Component } from './sample-view-structure2/sample-view-structure2.component';
 
 
 const appRoutes:Routes = [
@@ -49,7 +50,8 @@ const appRoutes:Routes = [
     StructuralViewSampleComponent,
     EmployeeProfileComponent,
     IndexoutletComponent,
-    FixedToolbarComponent
+    FixedToolbarComponent,
+    SampleViewStructure2Component
   ],
   imports: [
     BrowserModule,
