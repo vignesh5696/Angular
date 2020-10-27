@@ -8,18 +8,24 @@
 
 h1,h2,h3,h4,h5{
     margin: 0px;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
 }
 /* span{
     font-size: 70%;
     padding: 4px;
 } */
+
 body {
     background-color: #1d1f20;
     font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
 }
 
 #wrapper {
-    margin-left: auto;
+    /* margin-left: auto; */
     margin-right: auto;
     max-width: 80em;
     padding-top: 72px;
@@ -55,6 +61,7 @@ ol.organizational-chart ol {
 ol.organizational-chart {
     text-align: center;
     display: flex;
+    margin : 8px;
 }
 
 /* All ol Child */
@@ -206,15 +213,16 @@ ol.organizational-chart > li > ol > li > div {
 /*** TERTIARY ***/
 ol.organizational-chart > li > ol > li > ol > li > div {
     background-color: #b6d7e0;
-    width : 96px;
+    width : 136px;
     display: inline-block;
 }
 
 /*** QUATERNARY ***/
 ol.organizational-chart > li > ol > li > ol > li > ol > li > div {
     background-color: #b6d7e0;
-    width : 172px;
+    width : 236px;
     display: inline-block;
+    height : 360px;
 }
 
 /*** QUINARY ***/
@@ -232,10 +240,10 @@ ol.organizational-chart > li > ol > li > ol > li > ol > li > ol > li > ol >li > 
 }
 
 /*** MEDIA QUERIES ***/
-@media only screen and ( min-width: 64em ) {
+@media only screen and ( min-width: 200px ) {
 
     ol.organizational-chart {
-        margin-left: -12em;
+        margin-left: -1em;
         margin-right: -1em;
     }
 
@@ -249,7 +257,7 @@ ol.organizational-chart > li > ol > li > ol > li > ol > li > ol > li > ol >li > 
 
     ol.organizational-chart > li > div:only-of-type {
         margin-bottom: 0;
-        left : 25%;
+        left : 0%;
         /* width: calc((100% / 1) - 2em - 4px); */
     }
 
@@ -372,13 +380,13 @@ ol.organizational-chart > li > ol > li > ol > li > ol > li > ol > li > ol >li > 
         flex-wrap: nowrap;
     }
 
-    /* ol.organizational-chart > li > ol > li > ol:before,
+    ol.organizational-chart > li > ol > li > ol:before,
     ol.organizational-chart > li > ol > li > ol >li:before {
         height: 1em!important;
         left: 50%!important;
         top: 0!important;
         width: 3px!important;
-    } */
+    }
 
     ol.organizational-chart > li > ol > li >ol:after {
         display: none;

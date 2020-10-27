@@ -31,7 +31,7 @@ const appRoutes:Routes = [
   {path:'users',component:DetailDashboardComponent,children:[
     {path:':id',component:SideMenuComponent}
   ]},
-  {path:'organisation-structure',component:StructuralViewSampleComponent},
+  {path:'organisation-structure',component:StructuralViewComponent},
   { path: 'employees', component: IndexoutletComponent },
   { path: 'user', component: EmployeeProfileComponent },
   {path:'1',component:ProjectDashboard2Component,pathMatch:'full'},

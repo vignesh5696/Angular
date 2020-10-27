@@ -15,7 +15,7 @@ export class SampleViewStructure2Component implements OnInit {
   }
 
   exportAsXLSX(){
-    var element = document.getElementById('container');
+    var element = document.getElementById('org-chart');
     html2canvas(element).then((canvas) => {
       var imgdata = canvas.toDataURL('image/png');
       var doc = new jsPDF();

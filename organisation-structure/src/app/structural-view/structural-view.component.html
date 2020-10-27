@@ -1,30 +1,50 @@
+<app-fixed-toolbar></app-fixed-toolbar>
+<div style="z-index: 1;position:fixed;height:32px;width:100%;top:48px">
+    <button 
+    style="margin:8px 4px 8px 8px;background-color: lightgray;font-size: 120%;width: 32px; 
+    cursor: pointer; padding : 4px;border:none" 
+    (click)="onZoomIn()">+</button>
+    <button 
+    style="margin:8px 8px 8px 4px; background-color: lightgray;font-size: 120%;width: 32px; 
+    cursor: pointer;padding : 4px;border:none"
+    (click)="onZoomOut()">-</button>
+    <span class="material-icons" (click)="exportAsPdf()" style="float:right;padding:8px;margin-right:8px;cursor: pointer;" >
+        save_alt
+      </span>
+      <select  (change)="onComboChange($event.target.value)" style="float: right;display: inline-flex;width: 250px;padding:4px;margin:8px;outline: none;">
+        <option>Dev View</option>
+        <option>HR View</option>
+    </select>
+</div>
 <div id="wrapper">
-    <div id="container">
-
+    <div id="container"  [ngStyle]="{zoom:Percentage}">
         <ol class="organizational-chart">
-            <li>
+            <li id="org-chart">
                 <div>
-                    <h1>Infoview</h1>
+                    <h4>{{level0.name}}</h4>
+                    <span>[{{level0.count}}]</span>
                 </div>
                 <ol>
-                    <li *ngFor="let project of projects">
+                    <li *ngFor="let project of level1">
                         <div>
-                            <h2>{{project.project}}</h2>
+                            <h4>{{project.project}}</h4>
+                            <span>[{{project.count}}]</span>
                         </div>
-                        <ol>
-                            <ng-container *ngFor="let module of Modules">
-                                <li *ngIf="project.project===module.project">
+                        <ol *ngIf="project.PMO != null">
+                            <ng-container *ngFor="let PMO of level2">
+                                <li *ngIf="project.project===PMO.project"  >
                                     <div>
-                                        <h3>{{module.module}}</h3>
+                                        <h4>{{PMO.PMO}}</h4>
+                                        <span>[{{PMO.count}}]</span>
                                     </div>
-                                    <ol>
-                                        <ng-container *ngFor="let PMO of PMOS">
-                                            <li *ngIf="module.module===PMO.module">
+                                    <ol *ngIf="PMO.subModules != null">
+                                        <ng-container *ngFor="let subModule of level3">
+                                            <li  *ngIf="PMO.PMO===subModule.PMO">
                                                 <div>
-                                                    <h4>{{PMO.PMO}}</h4>
+                                                    <h4 #lastChild>{{getSubModule(PMO.PMO,lastChild)}}</h4>
                                                 </div>
-                                            </li>
-                                        </ng-container>   
+                                            </li>  
+                                        </ng-container> 
                                     </ol>
                                 </li>
                             </ng-container>
@@ -33,6 +53,5 @@
                 </ol>
             </li>
         </ol>
-
     </div>
 </div>
