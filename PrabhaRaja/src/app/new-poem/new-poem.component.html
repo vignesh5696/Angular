@@ -1,0 +1,30 @@
+<div class="backdrop" (click)="onClose()"></div>
+<div class="alert-box">
+    <div>
+        <form  class="example-form">
+            <p *ngIf="error" style="color: red;">Fields should not be empty</p>
+            <mat-form-field class="example-form" style="width:30%">
+                <mat-label>Title</mat-label>
+                <input type="text" name="title" 
+                placeholder="Enter title"
+                matInput
+                [formControl]="myTitle"
+                required
+                [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="example-form" >
+                <mat-label>Type here</mat-label>
+                <textarea matInput style="height: 100px;" name="poem" [formControl]="myPoem" required></textarea>
+              </mat-form-field>
+        </form>
+    </div>
+    <div class="alert-box-actions">
+        <button mat-button color="primary" (click)="onOk()">Create</button>
+        <button mat-button color="accent" (click)="onClose()">Cancel</button>
+    </div>
+</div>

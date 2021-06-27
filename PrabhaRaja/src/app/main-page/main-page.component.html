@@ -1,0 +1,44 @@
+<div style="background-image:linear-gradient(45deg, black, #ffbdbd);min-height: 100vh;">
+    <div style="height: 216px;padding: 8px;display: flex;">
+        <div style="height: inherit;max-width: 250px;align-items: center;">
+            <img src="../../assets/Mypic.jpg" alt="" style="height: 168px;width: 168px;border-radius: 50%;">
+            <img src="../../assets/5.png" alt="" class="emoji-movement chickEmoji" >
+            <button mat-raised-button color="accent" class="aboutButton">About me</button>
+        </div>
+        <div style="width: 100%;height: inherit;text-align: center;">
+            <strong style="font-style: italic;font-size: xx-large;font-family: cursive;color: white;">ONE LIFE.</strong>
+            <div style="height: 56%;">
+                <img src="../../assets/1.png" alt="" class="emoji-movement" 
+                style="float:left;top: 0px;animation-name: emojiFlow1;animation-duration: 8s;">
+                <img src="../../assets/2.png" alt="" class="emoji-movement" 
+                style="float:right;top: 0px;animation-name: emojiFlow2;animation-duration: 7s;">
+                <img src="../../assets/3.png" alt="" class="emoji-movement" 
+                style="float:left;top: 132px;animation-name: emojiFlow3;animation-duration: 10s;">
+                <img src="../../assets/4.png" alt="" class="emoji-movement" 
+                style="float:right;top: 132px;animation-name: emojiFlow4;animation-duration: 9s;">
+            </div>
+            <div>
+                <form class="example-form">
+                    <mat-form-field class="example-form" style="width:30%">
+                        <mat-label>Search</mat-label>
+                        <input type="text"
+                        placeholder="Select by Title,Content..."
+                        matInput
+                        [formControl]="myControl"
+                        [matAutocomplete]="auto">
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <app-poet-card style="display: flex;flex-wrap: wrap;"></app-poet-card>
+    <button mat-fab style="position: fixed;bottom: 8px;right: 8px;font-size: xx-large;"
+    (click)="switchMode()">+</button>
+        <app-new-poem *ngIf="createNew" (create)="onCreate()" (close)="switchMode()"></app-new-poem>
+</div>

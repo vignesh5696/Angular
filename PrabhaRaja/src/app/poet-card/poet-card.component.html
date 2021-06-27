@@ -1,0 +1,28 @@
+<div *ngFor="let poem of  poems;let i=index" class="cardWidth">
+    <div style="margin: 16px;">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title 
+                style="margin-left: -16px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 360px;"
+                [matTooltip]="poem.Header">{{poem.Header}}</mat-card-title>
+                <mat-card-subtitle style="margin-left: -8px;">{{poem.Date}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p style="overflow-wrap: break-word;height: 120px;overflow: auto;">
+                {{poem.Content}}
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-fab [matBadge]="poem.likeCount" matBadgeColor="primary" matBadgeSize="medium"
+                [color]="!poem.liked?'basic':'primary'" (click)="toggleBadgeVisibility(i)">
+                <mat-icon>favorite</mat-icon>
+                </button>
+                <span style="width: 8px;display: inline-flex;"></span>
+                <button mat-fab color="warn" (click)="onDelete(i)">
+                <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<p *ngIf="poems.length==0" style="position: absolute;left: 50%;top: 50%;">No Data</p>
