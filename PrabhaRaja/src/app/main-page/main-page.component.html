@@ -38,6 +38,7 @@
     </div>
     <hr>
     <app-poet-card style="display: flex;flex-wrap: wrap;"></app-poet-card>
+    <!-- <app-spinner *ngIf="loading" style="position: absolute;left: 50%;top: 50%;"></app-spinner> -->
     <button mat-fab *ngIf="isAuthenticated" style="position: fixed;bottom: 8px;right: 8px;font-size: xx-large;"
     (click)="switchMode()">+</button>
         <app-new-poem *ngIf="createNew" (create)="onCreate()" (close)="switchMode()"></app-new-poem>

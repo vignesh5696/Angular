@@ -21,6 +21,8 @@ export class DataService {
   poemsUpdated = new Subject<poemModel[]>();
   lastIdCount : number = -1;
   currentAccount  : string ="";
+  emitAccount = new Subject<string>();
+  // emitLoading = new Subject<boolean>();
    private fetchedPoems:poemModel[]=[
     // {
     //   Id : 1,
@@ -45,6 +47,7 @@ export class DataService {
   constructor(private http : HttpClient, private authService : AuthService) { }
 
   onFetchPoems() {
+    // this.emitLoading.next(true);
     this.http.get<number>('https://prabha-raja-default-rtdb.firebaseio.com/lastId.json')
     .subscribe(res => {
       this.lastIdCount=res;
@@ -52,6 +55,7 @@ export class DataService {
     )
     this.http.get<poemModel[]>('https://prabha-raja-default-rtdb.firebaseio.com/poems.json')
     .subscribe(res => {
+      // this.emitLoading.next(false);
       if(res != null){
       this.setPoems(res);
       }
@@ -60,7 +64,9 @@ export class DataService {
         this.updateTempData();
       }
       },err =>{
+        // this.emitLoading.next(false);
       });
+      // this.emitLoading.next(false);
   }
   getPoems() {
     return this.poems.slice();
@@ -130,20 +136,21 @@ export class DataService {
 
   getCurrentAccount() {
     this.http.get('https://jsonip.com').subscribe((res:any) => {
-      this.currentAccount = res.ip
+      this.currentAccount = res.ip;
+      this.emitAccount.next(this.currentAccount);
     },err => {
       // console.log("Error"+err[0])
     })
   }
 
-  onLike(id : number) {
+  onLike(id : number,liked : boolean) {
     // console.log(this.fetchedPoems)
     var likedIndex=this.fetchedPoems.findIndex(data => {
       return data.Id === id;
     })
     if(likedIndex !== -1) {
       this.fetchedPoems[likedIndex].liked=!this.fetchedPoems[likedIndex].liked;
-      if(this.fetchedPoems[likedIndex].liked) {
+      if(liked) {
         this.fetchedPoems[likedIndex].likeCount++;
         this.fetchedPoems[likedIndex].likedAccount.push(this.currentAccount);
       }

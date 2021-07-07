@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { map,startWith } from 'rxjs/operators';
+import { delay, map,startWith } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { DataService, poemModel } from '../data.service';
 
@@ -18,11 +18,17 @@ export class MainPageComponent implements OnInit,OnDestroy {
   subscription : Subscription =  new Subscription;
   createNew:boolean =false;
   isAuthenticated:boolean = false;
+  // loading  : boolean = false;
 
   constructor(private dataService : DataService,private authService : AuthService,
     private ref : ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    //  this.dataService.emitLoading.subscribe(res => {
+    //   // this.loading=res;
+    //   console.log(res)
+    // });
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),map(value => {
         this.dataService.filterPoems(value);

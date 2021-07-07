@@ -51,7 +51,7 @@ export class NewPoemComponent implements OnInit,OnDestroy {
      currentDate.getFullYear()+" "+
      (currentDate.getHours()<10?'0':'')+currentDate.getHours()+":"+
      (currentDate.getMinutes()<10?'0':'')+currentDate.getMinutes()+":"+
-     currentDate.getSeconds();
+     (currentDate.getSeconds()<10?'0':'')+currentDate.getSeconds();
   }
 
   onClose(){

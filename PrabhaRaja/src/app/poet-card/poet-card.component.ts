@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
@@ -16,9 +15,10 @@ export class PoetCardComponent implements OnInit,OnDestroy {
    subscription : Subscription = new Subscription;
    loginSubscription :  Subscription = new Subscription;
    isAuthenticated : boolean = false;
+   loading : boolean = false;
 
-  toggleBadgeVisibility(id : number) {
-    this.dataService.onLike(id);
+  toggleBadgeVisibility(id : number,liked : boolean) {
+    this.dataService.onLike(id,liked);
   }
 
   onDelete(index : number) {
@@ -28,26 +28,35 @@ export class PoetCardComponent implements OnInit,OnDestroy {
     private ref : ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.dataService.getCurrentAccount();
-    this.currentAccount=this.dataService.currentAccount;
-    this.poems.map(
-      poem => {
-        poem.likedAccount.map(account => {
-          account == this.currentAccount ? poem.liked=true:poem.liked=false;
-          poem.likeCount=poem.likedAccount.length;
-        })
-      });    
+    this.dataService.emitAccount.subscribe(res=>{
+      this.currentAccount=res;
+      this.mapLikedAccount();
+    });
+    this.dataService.onFetchPoems();
       this.subscription = this.dataService.poemsUpdated.subscribe (
         (poems : poemModel[]) => {
           this.poems = poems;
+      this.mapLikedAccount();
+      this.loading=false;
         }
       );
-      this.poems=this.dataService.getPoems();
-      this.dataService.onFetchPoems();
+      // this.poems=this.dataService.getPoems();
       this.loginSubscription = this.authService.user.subscribe(user =>{
         this.isAuthenticated = !(user.token==null);
         this.ref.detectChanges();
       });
+  }
+  mapLikedAccount() {
+    this.poems.map(
+      poem => {
+        poem.likedAccount.map(account => {
+          account == this.currentAccount ? poem.liked=true:poem.liked=false;
+          poem.likeCount=poem.likedAccount.length-1;
+        })
+        // poem.Content = poem.Content.replace("\n","<br>")
+      });   
   }
 
   ngOnDestroy() {
