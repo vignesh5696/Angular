@@ -1,0 +1,13 @@
+.example-card {
+    max-width: 400px;
+}
+
+.cardWidth {
+    min-width: 420px;
+}
+
+@media(max-width : 420px) {
+    .cardWidth {
+        min-width: 300px;
+    }
+}

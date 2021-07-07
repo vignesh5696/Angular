@@ -1,0 +1,36 @@
+<div style="margin: 32px;position: absolute;">
+        <!-- <ng-template appPlaceholder></ng-template> -->
+        <mat-error *ngIf="error">Authentication Failed</mat-error> 
+        <div *ngIf="loading" style="text-align: center;">
+            <app-spinner></app-spinner>
+        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="!loading">
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                  <mat-label>Enter your email</mat-label>
+                  <input matInput placeholder="abc@abc.com" type="email"  
+                  required
+                  email
+                  ngModel
+                  name="email">
+                  <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="example-container">
+                <mat-form-field appearance="fill">
+                  <mat-label>Enter your password</mat-label>
+                  <input matInput placeholder="******" type="password"  
+                  required
+                  password
+                  ngModel
+                  minlength="6"
+                  name="password">
+                  <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                </mat-form-field>
+              </div>
+            <div>
+                <button mat-button type="submit"  [disabled]="!f.valid">Login</button>
+            </div>
+        </form>
+</div>
+

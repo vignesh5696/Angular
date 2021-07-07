@@ -14,11 +14,11 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-fab [matBadge]="poem.likeCount" matBadgeColor="primary" matBadgeSize="medium"
-                [color]="!poem.liked?'basic':'primary'" (click)="toggleBadgeVisibility(i)">
+                [color]="!poem.liked?'basic':'primary'" (click)="toggleBadgeVisibility(poem.Id)">
                 <mat-icon>favorite</mat-icon>
                 </button>
                 <span style="width: 8px;display: inline-flex;"></span>
-                <button mat-fab color="warn" (click)="onDelete(i)">
+                <button mat-fab *ngIf="isAuthenticated" color="warn" (click)="onDelete(poem.Id)">
                 <mat-icon>delete</mat-icon>
                 </button>
             </mat-card-actions>

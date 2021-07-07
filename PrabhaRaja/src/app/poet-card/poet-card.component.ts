@@ -1,5 +1,7 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { stringify } from '@angular/compiler/src/util';
+import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { DataService, poemModel } from '../data.service';
 
 @Component({
@@ -9,21 +11,25 @@ import { DataService, poemModel } from '../data.service';
 })
 export class PoetCardComponent implements OnInit,OnDestroy {
 
-   currentAccount : String ='Vignesh';
+   currentAccount : string = "";
    poems:poemModel[]=[];
    subscription : Subscription = new Subscription;
+   loginSubscription :  Subscription = new Subscription;
+   isAuthenticated : boolean = false;
 
-  toggleBadgeVisibility(index : number) {
-    this.poems[index].liked=!this.poems[index].liked;
-    this.poems[index].liked?this.poems[index].likeCount++:this.poems[index].likeCount--;
+  toggleBadgeVisibility(id : number) {
+    this.dataService.onLike(id);
   }
 
   onDelete(index : number) {
     this.dataService.deletePoem(index);
   }
-  constructor(private dataService : DataService) { }
+  constructor(private dataService : DataService,private authService : AuthService,
+    private ref : ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.dataService.getCurrentAccount();
+    this.currentAccount=this.dataService.currentAccount;
     this.poems.map(
       poem => {
         poem.likedAccount.map(account => {
@@ -37,6 +43,11 @@ export class PoetCardComponent implements OnInit,OnDestroy {
         }
       );
       this.poems=this.dataService.getPoems();
+      this.dataService.onFetchPoems();
+      this.loginSubscription = this.authService.user.subscribe(user =>{
+        this.isAuthenticated = !(user.token==null);
+        this.ref.detectChanges();
+      });
   }
 
   ngOnDestroy() {

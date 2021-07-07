@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map,startWith } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 import { DataService, poemModel } from '../data.service';
 
 @Component({
@@ -9,19 +10,29 @@ import { DataService, poemModel } from '../data.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css']
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit,OnDestroy {
 
   myControl = new FormControl();
   options:string[]=['Friendship','Love','Nature','Sad'];
   filteredOptions : Observable<string[]>=new Observable;
-  createNew:boolean=false;
+  subscription : Subscription =  new Subscription;
+  createNew:boolean =false;
+  isAuthenticated:boolean = false;
 
-  constructor(private dataService : DataService) { }
+  constructor(private dataService : DataService,private authService : AuthService,
+    private ref : ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),map(value => this._filter(value))
+      startWith(''),map(value => {
+        this.dataService.filterPoems(value);
+        return this._filter(value)
+      })
     );
+    this.subscription = this.authService.user.subscribe(user =>{
+      this.isAuthenticated = !(user.token==null);
+      this.ref.detectChanges();
+    });
   }
 
   private _filter(value : string) : string[] {
@@ -35,6 +46,9 @@ export class MainPageComponent implements OnInit {
 
   onCreate() {
     this.createNew=!this.createNew;
+  }
+
+  ngOnDestroy() {
   }
 
 }

@@ -1,0 +1,8 @@
+<div class="backdrop" (close)="onClose()"></div>
+<div class="alert-box">
+    <p>{{message}}</p>
+    <div class="alert-box-actions">
+        <button class="btn btn-primary" (click)="onOk()">Yes</button>
+        <button style="margin-left: 8px;" class="btn btn-primary" (click)="onClose()">No</button>
+    </div>
+</div>
