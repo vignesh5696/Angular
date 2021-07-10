@@ -8,7 +8,7 @@ import { DataService, poemModel } from '../data.service';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+  styleUrls: ['./main-page.component.css','./secondary.component.css']
 })
 export class MainPageComponent implements OnInit,OnDestroy {
 
