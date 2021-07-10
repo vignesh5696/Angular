@@ -1,7 +1,9 @@
-<app-spinner *ngIf="loading"></app-spinner>
+<div  *ngIf="loading" style="display: flex;justify-content: center;"> 
+    <app-spinner></app-spinner>
+</div>
 <div *ngIf="!loading" style="background-image: linear-gradient(45deg, black, #ffbdbd);">
     <!-- <button (click)="onSave()">Save</button> -->
-    <button mat-fab style="position: fixed;top: 8px;right: 8px;color: white;" routerLink="/">
+    <button mat-fab style="position: fixed;top: 8px;right: 8px;color: white;z-index: 1;" routerLink="/">
     <mat-icon>home</mat-icon>
     </button>
     <div *ngFor = "let work of works;let i = index" 
