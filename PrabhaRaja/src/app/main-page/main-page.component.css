@@ -35,11 +35,11 @@
     70%{transform: rotate(270deg);left:70%;top:110px;float: none;}
     80%{transform: rotate(310deg);left:75%;top:125px;float: none;}
     90%{transform: rotate(360deg);left:80%;top:132px;float: none;}
-    100%{transform: rotate(0deg);left:90%;top:132px;float: none;}
+    100%{transform: rotate(0deg);left:85%;top:132px;float: none;}
 }
 @keyframes emojiFlow2 {
-    0%{transform: rotate(0deg);left:90%;top:-50px;float: none;}
-    10%{transform: rotate(30deg);left:80%;top:100px;float: none;}
+    0%{transform: rotate(0deg);left:80%;top:-50px;float: none;}
+    10%{transform: rotate(30deg);left:75%;top:100px;float: none;}
     20%{transform: rotate(70deg);left:70%;top:0px;float: none;}
     30%{transform: rotate(110deg);left:60%;top:100px;float: none;}
     40%{transform: rotate(150deg);left:55%;top:-50px;float: none;}
@@ -61,12 +61,12 @@
     70%{transform: rotate(270deg);left:70%;top:-132px;float: none;}
     80%{transform: rotate(310deg);left:75%;top:0px;float: none;}
     90%{transform: rotate(360deg);left:80%;top:-132px;float: none;}
-    100%{transform: rotate(0deg);left:90%;top:-132px;float: none;}
+    100%{transform: rotate(0deg);left:85%;top:-132px;float: none;}
 }
 
 @keyframes emojiFlow4 {
-    0%{transform: rotate(0deg);left:90%;top:0px;float: none;}
-    10%{transform: rotate(30deg);left:80%;top:-20px;float: none;}
+    0%{transform: rotate(0deg);left:80%;top:0px;float: none;}
+    10%{transform: rotate(30deg);left:75%;top:-20px;float: none;}
     20%{transform: rotate(70deg);left:70%;top:-60px;float: none;}
     30%{transform: rotate(110deg);left:60%;top:-80px;float: none;}
     40%{transform: rotate(150deg);left:55%;top:-100px;float: none;}
@@ -105,3 +105,71 @@
         top: -56px;
     }
 }
+
+@media (max-width : 564px) {
+
+    @keyframes emojiFlow1 {
+        0%{transform: rotate(0deg);left:0%;top:0px;float: none;}
+        10%{transform: rotate(30deg);left:10%;top:20px;float: none;}
+        20%{transform: rotate(70deg);left:20%;top:35px;float: none;}
+        30%{transform: rotate(110deg);left:30%;top:50px;float: none;}
+        40%{transform: rotate(150deg);left:40%;top:65px;float: none;}
+        50%{transform: rotate(190deg);left:50%;top:80px;float: none;}
+        60%{transform: rotate(230deg);left:60%;top:95px;float: none;}
+        70%{transform: rotate(270deg);left:70%;top:110px;float: none;}
+        80%{transform: rotate(310deg);left:75%;top:125px;float: none;}
+        90%{transform: rotate(360deg);left:75%;top:132px;float: none;}
+        100%{transform: rotate(0deg);left:75%;top:132px;float: none;}
+    }
+    @keyframes emojiFlow2 {    
+    0%{transform: rotate(0deg);left:75%;top:-50px;float: none;}
+    10%{transform: rotate(30deg);left:75%;top:100px;float: none;}
+    20%{transform: rotate(70deg);left:70%;top:0px;float: none;}
+    30%{transform: rotate(110deg);left:60%;top:100px;float: none;}
+    40%{transform: rotate(150deg);left:55%;top:-50px;float: none;}
+    50%{transform: rotate(190deg);left:50%;top:100px;float: none;}
+    60%{transform: rotate(230deg);left:40%;top:-50px;float: none;}
+    70%{transform: rotate(270deg);left:30%;top:100px;float: none;}
+    80%{transform: rotate(310deg);left:20%;top:-50px;float: none;}
+    90%{transform: rotate(360deg);left:10%;top:100px;float: none;}
+    100%{transform: rotate(0deg);left:0%;top:-50px;float: none;}
+    }
+    @keyframes emojiFlow3 {
+        0%{transform: rotate(0deg);left:0%;top:0px;float: none;}
+        10%{transform: rotate(30deg);left:10%;top:-132px;float: none;}
+        20%{transform: rotate(70deg);left:20%;top:0px;float: none;}
+        30%{transform: rotate(110deg);left:30%;top:-132px;float: none;}
+        40%{transform: rotate(150deg);left:40%;top:0px;float: none;}
+        50%{transform: rotate(190deg);left:50%;top:-132px;float: none;}
+        60%{transform: rotate(230deg);left:60%;top:0px;float: none;}
+        70%{transform: rotate(270deg);left:70%;top:-132px;float: none;}
+        80%{transform: rotate(310deg);left:75%;top:0px;float: none;}
+        90%{transform: rotate(360deg);left:75%;top:-132px;float: none;}
+        100%{transform: rotate(0deg);left:75%;top:-132px;float: none;}
+    }
+    @keyframes emojiFlow4 {
+        0%{transform: rotate(0deg);left:75%;top:0px;float: none;}
+        10%{transform: rotate(30deg);left:75%;top:-20px;float: none;}
+        20%{transform: rotate(70deg);left:70%;top:-60px;float: none;}
+        30%{transform: rotate(110deg);left:60%;top:-80px;float: none;}
+        40%{transform: rotate(150deg);left:55%;top:-100px;float: none;}
+        50%{transform: rotate(190deg);left:50%;top:-80px;float: none;}
+        60%{transform: rotate(230deg);left:40%;top:-60px;float: none;}
+        70%{transform: rotate(270deg);left:30%;top:-20px;float: none;}
+        80%{transform: rotate(310deg);left:20%;top:0px;float: none;}
+        90%{transform: rotate(360deg);left:10%;top:-20px;float: none;}
+        100%{transform: rotate(0deg);left:0%;top:-40px;float: none;}
+    }
+}
+/* @media (max-width : 440px) {
+    .pic{
+        display: none;
+    }
+    .chickEmoji{
+        display: none;
+    }
+    .aboutButton{
+        top:96px;
+        left:16px;
+    }
+} */

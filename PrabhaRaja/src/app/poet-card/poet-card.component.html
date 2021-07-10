@@ -28,6 +28,9 @@
             </mat-card>
         </div>
     </div>
-    <p *ngIf="poems.length==0" style="position: absolute;left: 50%;top: 50%;">No Data</p>
+    <p *ngIf="poems.length==0" style="position: absolute;left: 50%;top: 50%; color: white;">No Data</p>
   </ng-container> 
-    <app-spinner  *ngIf="loading" style="position: absolute;left: 50%;top: 50%;" ></app-spinner>
+    <!-- <app-spinner  *ngIf="loading" 
+    style="position: absolute;left: 50%;top: 50%;" ></app-spinner> -->
+    <p *ngIf="loading" style="position: absolute;left: 50%;top: 50%;color: white;">Loading...</p>
+

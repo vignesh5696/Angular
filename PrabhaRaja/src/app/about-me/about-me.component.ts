@@ -50,6 +50,8 @@ export class AboutMeComponent implements OnInit {
     // }
   ];
   loading = false;
+  linkedInId : string ="";
+
   constructor(private http : HttpClient) { }
 
   ngOnInit(): void {
@@ -65,6 +67,13 @@ export class AboutMeComponent implements OnInit {
     .subscribe(res => {
       this.loading=false;
         this.educations=res;
+    },err => {
+      this.loading=false;
+    });
+    this.http.get<string>('https://prabha-raja-default-rtdb.firebaseio.com/linkedInId.json')
+    .subscribe(res => {
+      this.loading=false;
+        this.linkedInId=res;
     },err => {
       this.loading=false;
     });

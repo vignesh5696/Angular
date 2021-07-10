@@ -1,4 +1,4 @@
-<div style="margin: 32px;position: absolute;">
+<div style="margin: 32px;position: absolute;display: flex;justify-content: center;width: 100%;">
         <!-- <ng-template appPlaceholder></ng-template> -->
         <mat-error *ngIf="error">Authentication Failed</mat-error> 
         <div *ngIf="loading" style="text-align: center;">
@@ -29,7 +29,7 @@
                 </mat-form-field>
               </div>
             <div>
-                <button mat-button type="submit"  [disabled]="!f.valid">Login</button>
+                <button mat-button color="primary" type="submit"  [disabled]="!f.valid">Login</button>
             </div>
         </form>
 </div>

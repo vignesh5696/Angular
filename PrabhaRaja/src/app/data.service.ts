@@ -79,7 +79,9 @@ export class DataService {
   }
 
   addPoems(poem:poemModel) {
-    this.fetchedPoems.push(poem);
+    var tempArr : poemModel[]=[];
+    tempArr.push(poem);
+    this.fetchedPoems=[...tempArr,...this.fetchedPoems];
     this.updateTempData();
     this.updateIdCount();
     return this.updateDb();

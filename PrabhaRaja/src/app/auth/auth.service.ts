@@ -38,6 +38,7 @@ export class AuthService{
           this.user.next(user);
           localStorage.setItem('userData',JSON.stringify(user));
           this.autoLogout(+ resData.expiresIn*1000);
+        
         }));
     }
     logout(){
@@ -59,7 +60,7 @@ export class AuthService{
             }=JSON.parse(param);
         const loadedUser = new User(userData.email,
             userData.id,userData._token,new Date(userData._tokenExpirationDate));
-        if(loadedUser.token){
+        if(loadedUser.token != ""){
             this.user.next(loadedUser);
             this.autoLogout(new Date(userData._tokenExpirationDate).getTime()-new Date().getTime());
         }

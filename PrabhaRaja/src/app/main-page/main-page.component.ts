@@ -54,6 +54,11 @@ export class MainPageComponent implements OnInit,OnDestroy {
     this.createNew=!this.createNew;
   }
 
+  logout() {
+    if(this.isAuthenticated)
+    this.authService.logout();
+  }
+
   ngOnDestroy() {
   }
 
