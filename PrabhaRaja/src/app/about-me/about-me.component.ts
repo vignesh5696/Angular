@@ -51,6 +51,7 @@ export class AboutMeComponent implements OnInit {
   ];
   loading = false;
   linkedInId : string ="";
+  mailId : string="";
 
   constructor(private http : HttpClient) { }
 
@@ -74,6 +75,13 @@ export class AboutMeComponent implements OnInit {
     .subscribe(res => {
       this.loading=false;
         this.linkedInId=res;
+    },err => {
+      this.loading=false;
+    });
+    this.http.get<string>('https://prabha-raja-default-rtdb.firebaseio.com/mailId.json')
+    .subscribe(res => {
+      this.loading=false;
+        this.mailId=res;
     },err => {
       this.loading=false;
     });

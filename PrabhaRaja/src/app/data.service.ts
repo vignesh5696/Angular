@@ -21,6 +21,7 @@ export class DataService {
   poemsUpdated = new Subject<poemModel[]>();
   lastIdCount : number = -1;
   currentAccount  : string ="";
+  currentFilterValue : string = "";
   emitAccount = new Subject<string>();
   // emitLoading = new Subject<boolean>();
    private fetchedPoems:poemModel[]=[
@@ -117,6 +118,7 @@ export class DataService {
   }
 
   filterPoems(value : string) {
+    this.currentFilterValue = value;
     this.poems=this.fetchedPoems.filter(list => {
       return list.Header.toLowerCase().includes(value.toLowerCase());
     })
@@ -126,6 +128,7 @@ export class DataService {
   updateTempData() {
     this.poems=this.fetchedPoems;
     this.poemsUpdated.next(this.poems.slice());
+    this.filterPoems(this.currentFilterValue);
   }
 
   updateIdCount(){
