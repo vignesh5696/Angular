@@ -51,11 +51,13 @@ export class PoetCardComponent implements OnInit,OnDestroy {
   mapLikedAccount() {
     this.poems.map(
       poem => {
+        poem.liked=false;
         poem.likedAccount.map(account => {
-          account == this.currentAccount ? poem.liked=true:poem.liked=false;
-          poem.likeCount=poem.likedAccount.length-1;
+          if(account == this.currentAccount){
+           poem.liked=true;
+          }
         })
-        // poem.Content = poem.Content.replace("\n","<br>")
+        poem.likeCount=poem.likedAccount.length-1;
       });   
   }
 
