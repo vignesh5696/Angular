@@ -16,6 +16,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AboutMeComponent } from './about-me/about-me.component';
 import { PlaceholderDirective } from './shared/placeholder.directive';
+import { PoemReadViewComponent } from './poem-read-view/poem-read-view.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PlaceholderDirective } from './shared/placeholder.directive';
     SpinnerComponent,
     AuthComponent,
     AboutMeComponent,
-    PlaceholderDirective
+    PlaceholderDirective,
+    PoemReadViewComponent
   ],
   imports: [
     BrowserModule,

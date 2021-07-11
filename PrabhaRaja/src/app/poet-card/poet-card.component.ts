@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { DataService, poemModel } from '../data.service';
@@ -17,15 +18,18 @@ export class PoetCardComponent implements OnInit,OnDestroy {
    isAuthenticated : boolean = false;
    loading : boolean = false;
 
-  toggleBadgeVisibility(id : number,liked : boolean) {
+  toggleBadgeVisibility(id : number,liked : boolean,event : MouseEvent) {
     this.dataService.onLike(id,liked);
+    event.stopPropagation();
   }
 
-  onDelete(index : number) {
+  onDelete(index : number,event : MouseEvent) {
     this.dataService.deletePoem(index);
+    event.stopPropagation();
   }
+
   constructor(private dataService : DataService,private authService : AuthService,
-    private ref : ChangeDetectorRef) { }
+    private ref : ChangeDetectorRef, private router : Router) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -59,6 +63,10 @@ export class PoetCardComponent implements OnInit,OnDestroy {
         })
         poem.likeCount=poem.likedAccount.length-1;
       });   
+  }
+
+  onCardClick(id : number){
+    this.router.navigate(['/view',id]);
   }
 
   ngOnDestroy() {

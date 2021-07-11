@@ -19,6 +19,7 @@ export interface poemModel {
 export class DataService {
 
   poemsUpdated = new Subject<poemModel[]>();
+  poemEmitted = new Subject<poemModel[]>();
   lastIdCount : number = -1;
   currentAccount  : string ="";
   currentFilterValue : string = "";
@@ -69,8 +70,13 @@ export class DataService {
       });
       // this.emitLoading.next(false);
   }
+
   getPoems() {
     return this.poems.slice();
+  }
+
+  getDbPoems() {
+    return this.http.get<poemModel[]>('https://prabha-raja-default-rtdb.firebaseio.com/poems.json');
   }
 
   setPoems(poems : poemModel[]) {
@@ -98,9 +104,7 @@ export class DataService {
   }
 
   deletePoem(id : number) {
-    var deleteIndex=this.fetchedPoems.findIndex(data => {
-      return data.Id === id;
-    })
+    var deleteIndex=this.getFetchedIndexForId(id);
     if(deleteIndex !== -1) {
       this.fetchedPoems.splice(deleteIndex,1)
       this.authService.user.pipe(take(1),exhaustMap(user => {
@@ -115,6 +119,12 @@ export class DataService {
       localStorage.clear();
     })
     }
+  }
+
+  getFetchedIndexForId(id : number) {
+   return this.fetchedPoems.findIndex(data => {
+      return data.Id === id;
+    })
   }
 
   filterPoems(value : string) {
