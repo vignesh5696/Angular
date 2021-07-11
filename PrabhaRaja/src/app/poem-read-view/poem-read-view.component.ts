@@ -42,21 +42,29 @@ export class PoemReadViewComponent implements OnInit {
      var foundIndex  = false;
      this.dataService.onFetchPoems();
      this.subscription = this.dataService.poemsUpdated.subscribe(poems => {
-      this.fetchedPoems = poems;
-      this.fetchedPoems.map(data => {
-        if(data.Id === +param['id']) {
-          this.poem=data;
-          this.currentIndex = this.getFetchedIndexForId(data.Id);
-          this.prevEnabled  = this.currentIndex != 0;
-          this.nextEnabled  = this.currentIndex != this.fetchedPoems.length-1;
-          this.mapLikedAccount();
-          this.loading=false;
-          foundIndex = true;
+       if(poems) {
+        this.fetchedPoems = poems;
+        this.fetchedPoems.map(data => {
+          if(data.Id === +param['id']) {
+            this.poem=data;
+            this.currentIndex = this.getFetchedIndexForId(data.Id);
+            this.prevEnabled  = this.currentIndex != 0;
+            this.nextEnabled  = this.currentIndex != this.fetchedPoems.length-1;
+            this.mapLikedAccount();
+            this.loading=false;
+            foundIndex = true;
+          }
+        });
+        if(!foundIndex) {
+          this.router.navigate(['/']);
         }
-      });
-      if(!foundIndex) {
+       }else {
+        this.loading=false;
         this.router.navigate(['/']);
-      }
+       }
+    },err => {
+      this.loading=false;
+      this.router.navigate(['/']);
     });
    });
  }

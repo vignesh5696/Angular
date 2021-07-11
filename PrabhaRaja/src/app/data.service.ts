@@ -53,8 +53,9 @@ export class DataService {
     this.http.get<number>('https://prabha-raja-default-rtdb.firebaseio.com/lastId.json')
     .subscribe(res => {
       this.lastIdCount=res;
-    }
-    )
+    },err =>{
+      
+    });
     this.http.get<poemModel[]>('https://prabha-raja-default-rtdb.firebaseio.com/poems.json')
     .subscribe(res => {
       // this.emitLoading.next(false);
@@ -67,6 +68,7 @@ export class DataService {
       }
       },err =>{
         // this.emitLoading.next(false);
+        this.poemsUpdated.next(undefined);
       });
       // this.emitLoading.next(false);
   }

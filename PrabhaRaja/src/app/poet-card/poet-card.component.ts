@@ -44,6 +44,8 @@ export class PoetCardComponent implements OnInit,OnDestroy {
           this.poems = poems;
       this.mapLikedAccount();
       this.loading=false;
+        },err => {
+          this.loading=false;
         }
       );
       // this.poems=this.dataService.getPoems();
@@ -53,16 +55,18 @@ export class PoetCardComponent implements OnInit,OnDestroy {
       });
   }
   mapLikedAccount() {
-    this.poems.map(
-      poem => {
-        poem.liked=false;
-        poem.likedAccount.map(account => {
-          if(account == this.currentAccount){
-           poem.liked=true;
-          }
-        })
-        poem.likeCount=poem.likedAccount.length-1;
-      });   
+    if(this.poems) {
+      this.poems.map(
+        poem => {
+          poem.liked=false;
+          poem.likedAccount.map(account => {
+            if(account == this.currentAccount){
+             poem.liked=true;
+            }
+          })
+          poem.likeCount=poem.likedAccount.length-1;
+        });   
+    }
   }
 
   onCardClick(id : number){
