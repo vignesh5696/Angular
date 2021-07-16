@@ -18,6 +18,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
   subscription : Subscription =  new Subscription;
   createNew:boolean =false;
   isAuthenticated:boolean = false;
+  userName : string = "User"
   // loading  : boolean = false;
 
   constructor(private dataService : DataService,private authService : AuthService,
@@ -28,7 +29,9 @@ export class MainPageComponent implements OnInit,OnDestroy {
     //   // this.loading=res;
     //   console.log(res)
     // });
-
+    this.dataService.emitLoadedUserName.subscribe(res => {
+      this.userName=res;
+    });
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),map(value => {
         this.dataService.filterPoems(value);

@@ -1,10 +1,17 @@
 <div style="background-image:linear-gradient(45deg, black, #ffbdbd);min-height: 100vh;
 min-width: 440px;">
-    <div style="height: 216px;padding: 8px;display: flex;">
+    <div style="height: 224px;padding: 8px;display: flex;">
         <div style="height: inherit;width: 294px;align-items: center;">
             <img src="../../assets/Mypic2.jpg" alt="" class="pic" style="height: 168px;width: 168px;border-radius: 50%;">
             <img src="../../assets/5.png" alt="" class="emoji-movement chickEmoji" (click)="logout()">
-            <button mat-raised-button color="accent" class="aboutButton" routerLink="/me">About me</button>
+            <div class="aboutButton">
+                <p style="margin:0px;color: white;font-family: cursive;">
+                    <strong>
+                        Hi {{userName}}
+                    </strong>
+                </p>
+                <button mat-raised-button style="margin-top: 4px;" color="accent"  routerLink="/me">Know about me</button>
+            </div>
         </div>
         <div style="width: 100%;height: inherit;text-align: center;">
             <strong style="font-style: italic;font-size: xx-large;font-family: cursive;color: white;">ONE LIFE.</strong>

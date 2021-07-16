@@ -15,14 +15,29 @@
     width: 60vw;
     padding: 16px;
     z-index: 100;
+    max-width: 500px;
     /* background: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.26); */
 }
 
 .alert-box-actions{
     text-align: right;
+    min-width: 208px;
 }
 
-.example-form {
-    width : 100%;
+.example-card {
+    /* max-width: 500px;
+    min-width: 250px; */
+    width: 100%;
 }
+
+.cardWidth {
+    min-width: 420px;
+}
+
+@media(max-width : 420px) {
+    .cardWidth {
+        min-width: 300px;
+    }
+}
+

@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
@@ -29,7 +30,8 @@ export class PoemReadViewComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
 
  constructor(private dataService : DataService,private authService : AuthService,
-   private ref : ChangeDetectorRef,private router : Router,private route : ActivatedRoute) { }
+   private ref : ChangeDetectorRef,private router : Router,private route : ActivatedRoute,
+   private snackBar : MatSnackBar) { }
 
  ngOnInit(): void {
    this.loading = true;
@@ -89,6 +91,12 @@ export class PoemReadViewComponent implements OnInit {
 
 toggleBadgeVisibility(id : number,liked : boolean) {
   this.dataService.onLike(id,liked);
+  if(liked) {
+    this.snackBar.open("Thanks "+this.dataService.LoggedInUser+" !!!","",{
+       duration :3000,
+       horizontalPosition : 'start'
+    });
+  }
 }
 
 onPrev() {

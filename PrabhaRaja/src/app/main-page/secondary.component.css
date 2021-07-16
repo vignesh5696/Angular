@@ -1,6 +1,5 @@
 .aboutButton {
-    left: 32px;
-    top: 8px;
+    margin-left: 24px;
 }
 
 .chickEmoji {
@@ -22,10 +21,10 @@
 }
 
 
-@media (max-width : 858px) {
+@media (max-width : 875px) {
     .aboutButton{
-        top:-20px;
-        left:-20px;
+        display: inline-block;
+        margin-left: -32px;
     }
     .chickEmoji{
         left:56px;

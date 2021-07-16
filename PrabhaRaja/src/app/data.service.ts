@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { exhaustMap, take, tap } from 'rxjs/operators';
 import { AuthService } from './auth/auth.service';
 
@@ -22,8 +22,16 @@ export class DataService {
   poemEmitted = new Subject<poemModel[]>();
   lastIdCount : number = -1;
   currentAccount  : string ="";
+  isExistingUser:boolean = false;
+  isUserLoaded : boolean = false;
+  userList : string[] =[] ;
+  userDetailList : string[] =[] ;
+  LoggedInUser : string = "User";
   currentFilterValue : string = "";
-  emitAccount = new Subject<string>();
+  emitAccount = new BehaviorSubject<string>("null");
+  emitLoadedUser = new BehaviorSubject<boolean>(false);
+  emitLoadedUserName = new BehaviorSubject<string>(this.LoggedInUser);
+  userSubscription : Subscription = new Subscription();
   // emitLoading = new Subject<boolean>();
    private fetchedPoems:poemModel[]=[
     // {
@@ -152,16 +160,18 @@ export class DataService {
   }
 
   getCurrentAccount() {
-    this.http.get('https://jsonip.com').subscribe((res:any) => {
-      this.currentAccount = res.ip;
-      this.emitAccount.next(this.currentAccount);
-    },err => {
-      // console.log("Error"+err[0])
-    })
+    var tempId=localStorage.getItem("tempIp") || "";
+    if(tempId.length > 0) {
+      this.userList.map(user => {
+        user == tempId ? this.currentAccount=tempId :this.currentAccount=""
+      });
+    }else {
+      this.currentAccount="";
+    }
+    this.emitAccount.next(this.currentAccount);
   }
 
   onLike(id : number,liked : boolean) {
-    // console.log(this.fetchedPoems)
     var likedIndex=this.fetchedPoems.findIndex(data => {
       return data.Id === id;
     })
@@ -182,7 +192,6 @@ export class DataService {
             index++;
           }
         });
-        // console.log(this.fetchedPoems[likedIndex].likedAccount.splice(getCurrentAccountIndex,1))
         this.fetchedPoems[likedIndex].likedAccount.splice(getCurrentAccountIndex,1);
       }
       this.http.put<poemModel[]>('https://prabha-raja-default-rtdb.firebaseio.com/poems.json',this.fetchedPoems).subscribe(res => {
@@ -190,4 +199,97 @@ export class DataService {
       })
   }
 }
+
+  checkExistingUser() {
+    return this.http.get<string[]>('https://prabha-raja-default-rtdb.firebaseio.com/signedInUserList.json');
+  }
+
+  insertNewUser() {
+    return this.http.put<string[]>('https://prabha-raja-default-rtdb.firebaseio.com/signedInUserList.json',
+    this.userList);
+  }
+
+  getUserDetail() {
+    return this.http.get<string[]>('https://prabha-raja-default-rtdb.firebaseio.com/signedInUserDetailList.json');
+  }
+
+  setUserDetailList() {
+    this.http.put<string[]>('https://prabha-raja-default-rtdb.firebaseio.com/signedInUserDetailList.json',
+    this.userDetailList).subscribe();
+  }
+
+  isSignedIn() {
+    let cookieUserName : string = localStorage.getItem("tempIp") || "";
+    if(cookieUserName.length != 0) {
+      this.getUserDetail().subscribe(userDetails  => {
+        userDetails.map(userDetail => {
+          if(userDetail.includes(cookieUserName)) {
+            var arr : string[] = userDetail.split("-");
+            this.LoggedInUser=arr[1];
+            this.emitLoadedUserName.next(this.LoggedInUser);
+          }
+        });
+      });
+      this.userSubscription=this.checkExistingUser().subscribe(userList => {
+        if(userList) {
+          this.userList = userList;
+          userList.map(user => {
+            if(user == cookieUserName.trim()) {
+              this.isExistingUser =true;
+            }
+          });
+        }
+      this.isUserLoaded = true;
+      this.emitLoadedUser.next(this.isExistingUser);
+      },err => {
+        this.isUserLoaded = true;
+        this.emitLoadedUser.next(this.isExistingUser);
+      });
+      this.emitLoadedUser.next(this.isExistingUser);
+    }else {
+      this.isUserLoaded = true;
+      this.emitLoadedUser.next(this.isExistingUser);
+    }
+  }
+
+  insertUser(id : string,name:string,email:string) {
+     this.checkExistingUser().subscribe(userList => {
+       if(userList) {
+        this.userList = userList;
+        var exist = false;
+        this.userList.map(userId => {
+           if(userId == id){
+             exist=true;
+           }
+        });
+        if(!exist) {
+            this.userList.push(id);
+        }
+       }else{
+          this.userList=[];
+          this.userList.push(id);
+       }
+       this.insertNewUser().subscribe();
+       this.getUserDetail().subscribe(userDetailList => {
+         if(userDetailList) {
+          this.userDetailList = userDetailList;
+          var userDetailFound = false;
+          var currentDetail : string = id+"-"+name+"-"+email;
+          this.userDetailList.map(userDetail => {
+            if(userDetail == currentDetail) {
+              userDetailFound = true;
+              this.LoggedInUser = name;
+            this.emitLoadedUserName.next(this.LoggedInUser);
+            }
+          });
+          if(!userDetailFound) {
+            var userDetail  
+            this.userDetailList.push(currentDetail);
+            this.setUserDetailList();
+          }
+         }
+       });
+       this.isSignedIn();
+     });
+  }
 }

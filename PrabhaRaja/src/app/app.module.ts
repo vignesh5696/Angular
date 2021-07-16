@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AboutMeComponent } from './about-me/about-me.component';
 import { PlaceholderDirective } from './shared/placeholder.directive';
 import { PoemReadViewComponent } from './poem-read-view/poem-read-view.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PoemReadViewComponent } from './poem-read-view/poem-read-view.component
     AuthComponent,
     AboutMeComponent,
     PlaceholderDirective,
-    PoemReadViewComponent
+    PoemReadViewComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

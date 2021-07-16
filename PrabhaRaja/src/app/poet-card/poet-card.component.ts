@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
@@ -21,6 +22,12 @@ export class PoetCardComponent implements OnInit,OnDestroy {
   toggleBadgeVisibility(id : number,liked : boolean,event : MouseEvent) {
     this.dataService.onLike(id,liked);
     event.stopPropagation();
+    if(liked) {
+      this.snackBar.open("Thanks "+this.dataService.LoggedInUser+" !!!","",{
+        duration : 3000,
+       horizontalPosition : 'start'
+      });
+    }
   }
 
   onDelete(index : number,event : MouseEvent) {
@@ -29,7 +36,7 @@ export class PoetCardComponent implements OnInit,OnDestroy {
   }
 
   constructor(private dataService : DataService,private authService : AuthService,
-    private ref : ChangeDetectorRef, private router : Router) { }
+    private ref : ChangeDetectorRef, private router : Router,private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -48,7 +55,6 @@ export class PoetCardComponent implements OnInit,OnDestroy {
           this.loading=false;
         }
       );
-      // this.poems=this.dataService.getPoems();
       this.loginSubscription = this.authService.user.subscribe(user =>{
         this.isAuthenticated = !(user.token==null);
         this.ref.detectChanges();

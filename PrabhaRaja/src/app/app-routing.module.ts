@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AboutMeComponent } from './about-me/about-me.component';
 import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { PoemReadViewComponent } from './poem-read-view/poem-read-view.component';
 
@@ -10,6 +11,7 @@ const appRoute : Routes = [
 
    {path:"auth" ,component : AuthComponent},
    {path:"me" ,component : AboutMeComponent},
+   {path:"login" ,component : LoginComponent},
    {path:"view/:id" ,component : PoemReadViewComponent},
    {path:"",component:MainPageComponent},
    {path:"**" ,redirectTo:""}
