@@ -1,43 +1,36 @@
-.backdrop{
+.backdrop1{
     position: fixed;
     top:0;
     left: 0;
     width: 100vw;
     height: 100vh;
+    min-width: 460px;
     background: rgba(0,0,0,0.10);
     z-index: 50;
 }
 
-.alert-box{
-    position: fixed;
+.alert-box1{
+    position: absolute;
     top:20vh;
     left:20vw;
     width: 60vw;
     padding: 16px;
     z-index: 100;
-    max-width: 500px;
+    /* max-width: 500px; */
     /* background: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.26); */
 }
 
-.alert-box-actions{
+.alert-box-actions1{
     text-align: right;
     min-width: 208px;
 }
 
-.example-card {
+.example-card1 {
     /* max-width: 500px;
     min-width: 250px; */
     width: 100%;
 }
 
-.cardWidth {
-    min-width: 420px;
-}
 
-@media(max-width : 420px) {
-    .cardWidth {
-        min-width: 300px;
-    }
-}
 

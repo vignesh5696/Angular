@@ -1,38 +1,40 @@
-<div class="backdrop" ></div>
-<div class="alert-box"  *ngIf="!loading">
-    <div>
-        <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title 
-                style="margin-left: -16px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 360px;"
-                [matTooltip]="poem.Header">{{poem.Header}}</mat-card-title>
-                <mat-card-subtitle style="margin-left: -8px;">{{poem.Date}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <pre style="overflow-wrap: break-word;height: 120px;
-                overflow: auto;white-space: pre-line;
-                font-family: 'ROBOTO';">
-                    {{poem.Content}}
-                </pre>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-fab [matBadge]="poem.likeCount" matBadgeColor="primary" matBadgeSize="medium"
-                    [color]="!poem.liked?'basic':'primary'" 
-                    (click)="toggleBadgeVisibility(poem.Id,!poem.liked)">
-                    <mat-icon>favorite</mat-icon>
-                    </button>
-                <span style="width: 8px;display: inline-flex;"></span>
-            </mat-card-actions>
-        </mat-card>
+<div style="min-width: 460px;">
+    <div class="backdrop1" ></div>
+    <div class="alert-box1"  *ngIf="!loading">
+        <div>
+            <mat-card class="example-card1">
+                <mat-card-header>
+                    <mat-card-title 
+                    style="margin-left: -16px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 360px;"
+                    [matTooltip]="poem.Header">{{poem.Header}}</mat-card-title>
+                    <mat-card-subtitle style="margin-left: -8px;">{{poem.Date}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <pre style="overflow-wrap: break-word;height: 120px;
+                    overflow: auto;white-space: pre-line;
+                    font-family: 'ROBOTO';">
+                        {{poem.Content}}
+                    </pre>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-fab [matBadge]="poem.likeCount" matBadgeColor="primary" matBadgeSize="medium"
+                        [color]="!poem.liked?'basic':'primary'" 
+                        (click)="toggleBadgeVisibility(poem.Id,!poem.liked)">
+                        <mat-icon>favorite</mat-icon>
+                        </button>
+                    <span style="width: 8px;display: inline-flex;"></span>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div class="alert-box-actions1">
+            <button mat-button color="primary" (click)="onClose()" style="float: left;">HOME</button>
+            <button mat-button color="primary" (click)="onPrev()" [disabled]="!prevEnabled">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+            <button mat-button color="primary" (click)="onNext()" [disabled]="!nextEnabled">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+        </div>
     </div>
-    <div class="alert-box-actions">
-        <button mat-button color="primary" (click)="onClose()" style="float: left;">HOME</button>
-        <button mat-button color="primary" (click)="onPrev()" [disabled]="!prevEnabled">
-            <mat-icon>navigate_before</mat-icon>
-        </button>
-        <button mat-button color="primary" (click)="onNext()" [disabled]="!nextEnabled">
-            <mat-icon>navigate_next</mat-icon>
-        </button>
-    </div>
+    <app-spinner  *ngIf="loading" style="display: flex;justify-content: center;"></app-spinner>
 </div>
-<app-spinner  *ngIf="loading" style="display: flex;justify-content: center;"></app-spinner>

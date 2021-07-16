@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 
 declare const gapi : any;
@@ -13,9 +14,15 @@ export class LoginComponent implements OnInit,AfterViewInit {
   error : boolean = false;
   loading : boolean = false;
   
-  constructor(private dataService : DataService,private ngZone : NgZone) { }
+  constructor(private dataService : DataService,private ngZone : NgZone,
+    private router : Router,private route : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.dataService.emitLoadedUser.subscribe(res => {
+      if(res) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   public  googleInit() {
@@ -42,6 +49,7 @@ export class LoginComponent implements OnInit,AfterViewInit {
   onSuccess(profile:any) {
     this.dataService.insertUser(profile.getId(),profile.getName(),profile.getEmail());
     localStorage.setItem("tempIp",profile.getId());
+    this.loading=true;
   }
 
   ngAfterViewInit() {

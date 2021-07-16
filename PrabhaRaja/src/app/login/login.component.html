@@ -1,4 +1,4 @@
-<div class="alert-box">
+<div class="alert-box" *ngIf="!loading">
  <p style="display: flex;justify-content: center;">
   <strong>One time login</strong>
 </p> 
@@ -10,5 +10,8 @@
       Login with Google
     </button>
 </div>
+</div>
+<div style="display: flex;justify-content: center;">
+  <app-spinner *ngIf="loading"></app-spinner>
 </div>
 

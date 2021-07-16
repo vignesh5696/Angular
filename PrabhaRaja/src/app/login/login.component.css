@@ -11,7 +11,7 @@
 .alert-box{
     position: fixed;
     top:20vh;
-    left:20vw;
+    left:15vw;
     width: 60vw;
     padding: 16px;
     z-index: 100;
