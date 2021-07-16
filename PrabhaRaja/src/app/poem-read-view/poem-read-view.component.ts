@@ -94,7 +94,7 @@ toggleBadgeVisibility(id : number,liked : boolean) {
   if(liked) {
     this.snackBar.open("Thanks "+this.dataService.LoggedInUser+" !!!","",{
        duration :3000,
-       horizontalPosition : 'start'
+       verticalPosition : 'top'
     });
   }
 }

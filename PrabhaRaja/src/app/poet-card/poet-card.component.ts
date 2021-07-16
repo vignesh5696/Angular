@@ -25,7 +25,7 @@ export class PoetCardComponent implements OnInit,OnDestroy {
     if(liked) {
       this.snackBar.open("Thanks "+this.dataService.LoggedInUser+" !!!","",{
         duration : 3000,
-       horizontalPosition : 'start'
+        verticalPosition : 'top'
       });
     }
   }
