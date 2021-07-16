@@ -163,7 +163,7 @@ export class DataService {
     var tempId=localStorage.getItem("tempIp") || "";
     if(tempId.length > 0) {
       this.userList.map(user => {
-        user == tempId ? this.currentAccount=tempId :this.currentAccount=""
+        user == tempId ? this.currentAccount=tempId :""
       });
     }else {
       this.currentAccount="";
@@ -220,6 +220,8 @@ export class DataService {
 
   isSignedIn() {
     let cookieUserName : string = localStorage.getItem("tempIp") || "";
+    this.currentAccount=cookieUserName;
+    this.emitAccount.next(this.currentAccount);
     if(cookieUserName.length != 0) {
       this.getUserDetail().subscribe(userDetails  => {
         userDetails.map(userDetail => {
@@ -283,7 +285,6 @@ export class DataService {
             }
           });
           if(!userDetailFound) {
-            var userDetail  
             this.userDetailList.push(currentDetail);
             this.setUserDetailList();
           }
