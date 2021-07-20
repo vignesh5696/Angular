@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
     this.dataService.emitLoadedUser.subscribe(userFound => {
       this.userFound = userFound;  
       this.loaded = this.dataService.isUserLoaded;
+      console.log(this.userFound)
       if(this.loaded)
         this.navigateTo();
     });

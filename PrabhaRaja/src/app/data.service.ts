@@ -271,7 +271,6 @@ export class DataService {
           this.userList=[];
           this.userList.push(id);
        }
-       this.insertNewUser().subscribe();
        this.getUserDetail().subscribe(userDetailList => {
          if(userDetailList) {
           this.userDetailList = userDetailList;
@@ -290,7 +289,39 @@ export class DataService {
           }
          }
        });
+       this.insertNewUser().subscribe(res=> {
        this.isSignedIn();
+      });
      });
+  }
+
+  generateTempIdForMail(email : string) {
+    this.getUserDetail().subscribe(userDetailList => {
+      var tempId : string="";
+      var userDetailFound = false;
+      if(userDetailList) {
+       this.userDetailList = userDetailList;
+       this.userDetailList.map(userDetail => {
+         var arr : string[]=userDetail.split("-");
+         if(arr[2] == email && arr[0].includes(email)) {
+           userDetailFound = true;
+           tempId = arr[0];
+         }
+       });
+       if(!userDetailFound) {
+        var date = new Date();
+        var tempValue : string=date.getDate().toString()+
+        date.getMonth().toString()+
+        date.getFullYear().toString()+
+        date.getHours().toString()+
+        date.getMinutes().toString()+
+        date.getMilliseconds().toString();
+        tempId = (tempValue+email);
+       }
+      }
+      var tempName : string[] = email.split("@");
+      this.insertUser(tempId,tempName[0],email);
+      localStorage.setItem("tempIp",tempId);
+    });
   }
 }

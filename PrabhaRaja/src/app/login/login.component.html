@@ -2,14 +2,35 @@
  <p style="display: flex;justify-content: center;">
   <strong>One time login</strong>
 </p> 
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="error" >
+<mat-form-field style="display: flex;justify-content: center;" appearance="fill">
+  <mat-label>Enter your email</mat-label>
+  <input matInput placeholder="abc@abc.com" type="email"  
+  required
+  email
+  ngModel
+  name="email">
+</mat-form-field>
+<div style="display: flex;justify-content: center;"   >
+  <button mat-button color="primary" type="submit"  >
+    Login with Mail id
+  </button>
+</div>
+</form>
+<p *ngIf="error" style="display: flex;justify-content: center;">
+(OR)
+</p>
   <div style="display: flex;justify-content: center;"> 
-    <button 
+    <button [disabled]="error"
     data-onsuccess="onSignIn" mat-flat-button id="googleBtn" color="primary">
       <img src="../../assets/google.png" 
       style="border-radius: 50%;display: inline-block;height: 32px;width: 32px;margin-right: 8px;">
       Login with Google
     </button>
 </div>
+<p style="display: flex;justify-content: center;color: red;" [hidden]="!cookieError" >
+  Enable Third party cookies for Google Login. 
+</p>
 </div>
 <div style="display: flex;justify-content: center;">
   <app-spinner *ngIf="loading"></app-spinner>
