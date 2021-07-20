@@ -1,4 +1,4 @@
-.backdrop1{
+/* .backdrop1{
     position: fixed;
     top:0;
     left: 0;
@@ -7,7 +7,7 @@
     min-width: 460px;
     background: rgba(0,0,0,0.10);
     z-index: 50;
-}
+} */
 
 .alert-box1{
     position: absolute;
@@ -32,5 +32,10 @@
     width: 100%;
 }
 
+@media(max-width : 350px) {
+    .alert-box1{
+        left: 10vw;
+    }
+}
 
 

@@ -1,11 +1,12 @@
-<div style="min-width: 460px;">
-    <div class="backdrop1" ></div>
+<div style="min-width: 280px;background: rgba(0,0,0,0.10);height: 100vh;">
+    <!-- <div class="backdrop1" ></div> -->
     <div class="alert-box1"  *ngIf="!loading">
         <div>
             <mat-card class="example-card1">
-                <mat-card-header>
+                <mat-card-header style="width: inherit;display: block;">
                     <mat-card-title 
-                    style="margin-left: -16px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 360px;"
+                    style="margin-left: -16px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+                    width: inherit;"
                     [matTooltip]="poem.Header">{{poem.Header}}</mat-card-title>
                     <mat-card-subtitle style="margin-left: -8px;">{{poem.Date}}</mat-card-subtitle>
                 </mat-card-header>

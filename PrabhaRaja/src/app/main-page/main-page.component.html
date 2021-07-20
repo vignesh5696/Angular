@@ -13,7 +13,7 @@ min-width: 440px;">
                 <button mat-raised-button style="margin-top: 4px;" color="accent"  routerLink="/me">Know about me</button>
             </div>
         </div>
-        <div style="width: 100%;height: inherit;text-align: center;">
+        <div style="width: 100%;height:inherit;text-align: center;">
             <strong style="font-style: italic;font-size: xx-large;font-family: cursive;color: white;">ONE LIFE.</strong>
             <div style="height: 56%;">
                 <img src="../../assets/1.png" alt="" class="emoji-movement" 
@@ -45,7 +45,8 @@ min-width: 440px;">
         </div>
     </div>
     <hr>
-    <app-poet-card style="display: flex;flex-wrap: wrap;"></app-poet-card>
+    <app-poet-card style="display: flex;flex-wrap: wrap;height: calc(100vh - 258px);overflow-y: scroll;">
+    </app-poet-card>
     <!-- <app-spinner *ngIf="loading" style="position: absolute;left: 50%;top: 50%;"></app-spinner> -->
     <button mat-fab *ngIf="isAuthenticated" style="position: fixed;bottom: 8px;right: 8px;font-size: xx-large;"
     (click)="switchMode()">+</button>
