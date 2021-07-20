@@ -28,7 +28,7 @@
       Login with Google
     </button>
 </div>
-<p style="display: flex;justify-content: center;color: red;" [hidden]="!cookieError" >
+<p style="display: flex;justify-content: center;color: red;" *ngIf="error" >
   Enable Third party cookies for Google Login. 
 </p>
 </div>

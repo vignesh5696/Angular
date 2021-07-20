@@ -29,12 +29,13 @@
 .example-card1 {
     /* max-width: 500px;
     min-width: 250px; */
-    width: 100%;
+    width: inherit;
 }
 
 @media(max-width : 350px) {
     .alert-box1{
         left: 10vw;
+        width: 80vw;
     }
 }
 
