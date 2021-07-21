@@ -16,6 +16,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
   options:string[]=['Friendship','Love','Nature','Sad'];
   filteredOptions : Observable<string[]>=new Observable;
   subscription : Subscription =  new Subscription;
+  loaderSubscription : Subscription =  new Subscription;
   createNew:boolean =false;
   isAuthenticated:boolean = false;
   userName : string = "User"
@@ -29,7 +30,7 @@ export class MainPageComponent implements OnInit,OnDestroy {
     //   // this.loading=res;
     //   console.log(res)
     // });
-    this.dataService.emitLoadedUserName.subscribe(res => {
+    this.loaderSubscription=this.dataService.emitLoadedUserName.subscribe(res => {
       this.userName=res;
     });
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -63,6 +64,12 @@ export class MainPageComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy() {
+    if(this.loaderSubscription) {
+      this.loaderSubscription.unsubscribe();
+    }
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

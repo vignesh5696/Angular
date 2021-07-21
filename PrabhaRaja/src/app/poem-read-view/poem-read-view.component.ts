@@ -14,6 +14,7 @@ export class PoemReadViewComponent implements OnInit {
   currentAccount : string = "";
   currentIndex : number = -1;
   subscription : Subscription = new Subscription;
+  accountSubscription : Subscription = new Subscription;
   loading : boolean = false;
   fetchedPoems : poemModel[]=[];
   prevEnabled : boolean = this.currentIndex != 0;
@@ -36,7 +37,7 @@ export class PoemReadViewComponent implements OnInit {
  ngOnInit(): void {
    this.loading = true;
    this.dataService.getCurrentAccount();
-   this.dataService.emitAccount.subscribe(res=>{
+   this.accountSubscription=this.dataService.emitAccount.subscribe(res=>{
       this.currentAccount=res;
       this.mapLikedAccount();
     });
@@ -120,7 +121,10 @@ onNext() {
 }
 
  ngOnDestroy() {
+   if(this.subscription)
    this.subscription.unsubscribe();
+   if(this.accountSubscription)
+   this.accountSubscription.unsubscribe();
  }
 
 }

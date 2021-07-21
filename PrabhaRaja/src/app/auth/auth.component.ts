@@ -17,11 +17,11 @@ import { Container } from '@angular/compiler/src/i18n/i18n_ast';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit,OnDestroy {
 
   loading=false;
   error=false;
-  alertSubscription : Subscription=new Subscription;
+  authSubscription : Subscription=new Subscription;
 
   constructor(private http : HttpClient, private router : Router,
     private companyFactoryResolver : ComponentFactoryResolver,
@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
     const email= form.value.email;
     const password = form.value.password;
     this.loading=true;
-    this.authService.login(email,password).subscribe(resData => {
+    this.authSubscription=this.authService.login(email,password).subscribe(resData => {
       this.loading=false;
       this.error=false;
       this.router.navigate(['/']);
@@ -45,4 +45,8 @@ export class AuthComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    if(this.authSubscription)
+    this.authSubscription.unsubscribe();
+  }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, DoCheck, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DoCheck, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
@@ -11,13 +11,14 @@ let auth2 : any;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit,AfterViewInit {
+export class LoginComponent implements OnInit,AfterViewInit,OnDestroy {
 
   error : boolean = false;
   cookieError : boolean = false;
   errorMessage :string = "";
   emitErrorMessage = new BehaviorSubject<string>(this.errorMessage);
   emitSubscription = new Subscription();
+  loaderSubscription = new Subscription();
   loading : boolean = false;
   
   constructor(private dataService : DataService,private ngZone : NgZone,
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit,AfterViewInit {
     }
 
   ngOnInit(): void {
-    this.dataService.emitLoadedUser.subscribe(res => {
+    this.loaderSubscription=this.dataService.emitLoadedUser.subscribe(res => {
       if(res) {
         this.router.navigate(['/']);
       }
@@ -88,7 +89,15 @@ export class LoginComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit() {
     this.googleInit();
+  }
 
+  ngOnDestroy() {
+    if(this.loaderSubscription) {
+      this.loaderSubscription.unsubscribe();
+    }
+    if(this.emitSubscription) {
+      this.emitSubscription.unsubscribe();
+    }
   }
 
 }

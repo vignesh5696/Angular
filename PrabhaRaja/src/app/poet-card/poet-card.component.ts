@@ -16,6 +16,7 @@ export class PoetCardComponent implements OnInit,OnDestroy {
    poems:poemModel[]=[];
    subscription : Subscription = new Subscription;
    loginSubscription :  Subscription = new Subscription;
+   accountSubscription :  Subscription = new Subscription;
    isAuthenticated : boolean = false;
    loading : boolean = false;
 
@@ -41,7 +42,7 @@ export class PoetCardComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.loading = true;
     this.dataService.getCurrentAccount();
-    this.dataService.emitAccount.subscribe(res=>{
+    this.accountSubscription=this.dataService.emitAccount.subscribe(res=>{
       this.currentAccount=res;
       this.mapLikedAccount();
     });
@@ -80,6 +81,11 @@ export class PoetCardComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy() {
+    if(this.subscription)
     this.subscription.unsubscribe();
+    if(this.loginSubscription)
+    this.loginSubscription.unsubscribe();
+    if(this.accountSubscription)
+    this.accountSubscription.unsubscribe();
   }
 }
