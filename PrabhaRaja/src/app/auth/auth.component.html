@@ -4,7 +4,8 @@
         <div *ngIf="loading" style="text-align: center;">
             <app-spinner></app-spinner>
         </div>
-        <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="!loading">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="!loading" 
+        style="background-color: white;opacity: 0.5;">
             <div class="example-container">
                 <mat-form-field appearance="fill">
                   <mat-label>Enter your email</mat-label>

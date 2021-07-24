@@ -1,4 +1,4 @@
-<div style="background-image:linear-gradient(45deg, black, #ffbdbd);min-height: 100vh;
+<div style="min-height: 100vh;
 min-width: 440px;">
     <div style="height: 224px;padding: 8px;display: flex;">
         <div style="height: inherit;width: 294px;align-items: center;">
@@ -27,7 +27,7 @@ min-width: 440px;">
             </div>
             <div>
                 <form style="width : 100%;">
-                    <mat-form-field style="width:32%">
+                    <mat-form-field style="width:32%;background-color: white;opacity: 0.4;">
                         <mat-label>Search</mat-label>
                         <input type="text"
                         placeholder="Search by Title"
@@ -45,7 +45,8 @@ min-width: 440px;">
         </div>
     </div>
     <hr>
-    <app-poet-card style="display: flex;flex-wrap: wrap;height: calc(100vh - 258px);overflow-y: scroll;">
+    <app-poet-card 
+    style="display: flex;flex-wrap: wrap;height: calc(100vh - 258px);overflow-y: scroll;opacity: 0.9;">
     </app-poet-card>
     <!-- <app-spinner *ngIf="loading" style="position: absolute;left: 50%;top: 50%;"></app-spinner> -->
     <button mat-fab *ngIf="isAuthenticated" style="position: fixed;bottom: 8px;right: 8px;font-size: xx-large;"
