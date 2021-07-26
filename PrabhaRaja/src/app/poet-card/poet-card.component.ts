@@ -19,6 +19,7 @@ export class PoetCardComponent implements OnInit,OnDestroy {
    accountSubscription :  Subscription = new Subscription;
    isAuthenticated : boolean = false;
    loading : boolean = false;
+   url:string="";
 
   toggleBadgeVisibility(id : number,liked : boolean,event : MouseEvent) {
     this.dataService.onLike(id,liked);
@@ -78,6 +79,12 @@ export class PoetCardComponent implements OnInit,OnDestroy {
 
   onCardClick(id : number){
     this.router.navigate(['/view',id]);
+  }
+
+  getUrl(id:number,event : MouseEvent) {
+    event.stopPropagation();
+    let domain=(new URL(window.location.origin));
+    this.url=domain+"/view/"+id;
   }
 
   ngOnDestroy() {

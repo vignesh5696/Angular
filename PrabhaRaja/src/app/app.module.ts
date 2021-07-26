@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ShareButtonModule } from 'ngx-sharebuttons/button';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +43,9 @@ import { LoginComponent } from './login/login.component';
     AngularMaterialModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ShareButtonModule,
+    ShareIconsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

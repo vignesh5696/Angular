@@ -19,6 +19,7 @@ export class PoemReadViewComponent implements OnInit {
   fetchedPoems : poemModel[]=[];
   prevEnabled : boolean = this.currentIndex != 0;
   nextEnabled : boolean = this.currentIndex != this.fetchedPoems.length-1;
+  url:string ="";
   poem : poemModel ={
     Id : -1,
     Header : "",
@@ -118,6 +119,11 @@ onNext() {
 
  onClose(){
    this.router.navigate(['/']);
+}
+
+getUrl(id:number) {
+  let domain=(new URL(window.location.origin));
+  this.url=domain+"/view/"+id;
 }
 
  ngOnDestroy() {

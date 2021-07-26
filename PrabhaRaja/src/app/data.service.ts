@@ -275,7 +275,7 @@ export class DataService {
          if(userDetailList) {
           this.userDetailList = userDetailList;
           var userDetailFound = false;
-          var currentDetail : string = id+"-"+name+"-"+email;
+          var currentDetail : string = id+"-"+name+"-"+email+"-"+navigator.userAgent;
           this.userDetailList.map(userDetail => {
             if(userDetail == currentDetail) {
               userDetailFound = true;

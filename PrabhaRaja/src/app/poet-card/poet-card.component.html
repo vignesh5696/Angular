@@ -22,6 +22,20 @@
                     <mat-icon>favorite</mat-icon>
                     </button>
                     <span style="width: 8px;display: inline-flex;"></span>
+                    <button mat-fab [matMenuTriggerFor]="menu" color="primary" (click)=getUrl(poem.Id,$event)>
+                        <mat-icon>share</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <share-button [url]="url" button="whatsapp"></share-button>
+                            <share-button [url]="url" button="facebook"></share-button>
+                            <share-button [url]="url" button="twitter"></share-button>
+                            <share-button [url]="url" button="linkedin"></share-button>
+                            <share-button [url]="url" button="email"></share-button>
+                            <share-button [url]="url" button="messenger"></share-button>
+                            <share-button [url]="url" button="telegram"></share-button>
+                            <share-button [url]="url" button="sms"></share-button>
+                        </mat-menu>
+                    <span style="width: 8px;display: inline-flex;"></span>
                     <button mat-fab *ngIf="isAuthenticated" color="warn" (click)="onDelete(poem.Id,$event)">
                     <mat-icon>delete</mat-icon>
                     </button>
